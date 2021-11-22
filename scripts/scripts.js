@@ -357,14 +357,15 @@ function buildImageBlocks(main) {
  * @param {Element} main The container element
  */
 function buildHeroBlock(main) {
+  console.log('main', main);
+
   // grab h1, p and first img
-  const contentWrapper = main.querySelector('div > div');
+  const contentWrapper = main.querySelector('div');
+  console.log('contentWrapper', contentWrapper);
   const title = contentWrapper.firstChild;
   const subTitle = contentWrapper.getElementsByTagName('p')[0];
   const heroImage = contentWrapper.querySelector('div.images.block');
 
-  console.log('title', title);
-  console.log('subTitle', subTitle);
   console.log('heroImage', heroImage);
 
   const hero = document.createElement('div');
@@ -373,7 +374,7 @@ function buildHeroBlock(main) {
   // todo do we need Nullchecks here?
   hero.appendChild(title);
   hero.appendChild(subTitle);
-  hero.appendChild(heroImage);
+  // hero.appendChild(heroImage);
 
   // insert new hero block as first element in '<main/>'
   contentWrapper.insertBefore(hero, contentWrapper.firstChild);
