@@ -3,9 +3,9 @@ import createTag from '../gnav/gnav-utils.js';
 const ADCHOICE_IMG = '<img class="footer-link-img" loading="lazy" alt="AdChoices icon" src="/blocks/footer/adchoices-small.svg">';
 
 class RelatedArticles {
-  constructor(body, el) {
+  constructor(parsedArticles, el) {
     this.el = el;
-    this.body = body;
+    this.parsedArticles = parsedArticles;
     this.desktop = window.matchMedia('(min-width: 900px)');
   }
 
@@ -242,18 +242,19 @@ export default async function init(block) {
     const articlesMarkupText = await fetchMarkupTextFromArticles(relatedArticlesMarkup);
     console.log('relatedArticlesMarkup', relatedArticlesMarkup);
     console.log('articlesMarkupText', articlesMarkupText);
-    if (relatedArticlesMarkup) {
+    if (articlesMarkupText) {
       try {
         const parser = new DOMParser();
-        for (let i = 0; i < relatedArticlesMarkup.length; i++) {
-          relatedArticlesMarkup[i];
+        const parsedArticles = [];
+        for (let i = 0; i < articlesMarkupText.length; i += 1) {
+          console.log('articlesMarkupText[i]', articlesMarkupText[i]);
+          parsedArticles.push(parser.parseFromString(articlesMarkupText[i], 'text/html'));
         }
-        const footerDoc = parser.parseFromString(html, 'text/html');
-        const relatedArticles = new RelatedArticles(footerDoc.body, block);
+        const relatedArticles = new RelatedArticles(parsedArticles, block);
         await relatedArticles.init();
       } catch (error) {
         // eslint-disable-next-line no-console
-        console.error('Could not create footer.', error.message);
+        console.error('Could not create related-articles.', error.message);
       }
     }
   }
