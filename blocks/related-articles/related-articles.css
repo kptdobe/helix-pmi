@@ -1,3 +1,11 @@
 .related-articles {
 
 }
+
+.related-articles_wrapper {
+    display: flex;
+    flex-direction: row;
+}
+
+.related-articles_item {
+}
