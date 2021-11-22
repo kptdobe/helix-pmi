@@ -1,10 +1,11 @@
 /* above the fold CSS goes here */
 :root {
-  --color-primary: rgb(0,116,192);
-  --color-primary-hover: #0062a3;
-  --gradient-color: rgba(0,0,0,0.8);
-  --main-font: Lato,Helvetica Neue,Helvetica,Arial,sans-serif;
-  --paddingCompensation: 0px;
+    --color-primary: rgb(0, 116, 192);
+    --color-primary-hover: #0062a3;
+    --gradient-color: rgba(0, 0, 0, 0.8);
+    --color-heading: #393939;
+    --main-font: Lato, Helvetica Neue, Helvetica, Arial, sans-serif;
+    --paddingCompensation: 0px;
 }
 
 main {
@@ -12,22 +13,22 @@ main {
 }
 
 body {
-  color: #262626;
-  font-family: var(--main-font);
+    color: #262626;
+    font-family: var(--main-font);
 }
 
 kendo-content-block a, .wysiwyg a {
-  font-weight: 700;
-  text-decoration: underline;
+    font-weight: 700;
+    text-decoration: underline;
 }
 
 p a {
-  color: var(--color-primary);
-  transition: color .4s ease-in-out;
-  cursor: pointer;
+    color: var(--color-primary);
+    transition: color .4s ease-in-out;
+    cursor: pointer;
 }
 
-p{
+p {
     margin: 0 auto 36px;
     padding-bottom: 1rem;
     max-width: 600px;
@@ -41,11 +42,24 @@ a {
     text-decoration: underline;
 }
 
-h3 {
-    margin: 0 auto 18px;
-    max-width: 600px;
-    color: black;
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--main-font);
+    color: var(--color-heading);
     font-weight: bold;
+}
+
+h2, h3, h4, h5, h6 {
+    margin: 0 auto 18px;
+}
+
+h2 {
+    text-align: justify;
+    font-size: 20px;
+    line-height: 24px;
+}
+
+h3 {
+    max-width: 600px;
     font-size: 16px;
     line-height: 24px;
 }
