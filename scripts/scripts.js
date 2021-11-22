@@ -358,9 +358,10 @@ function buildImageBlocks(main) {
  */
 function buildHeroBlock(main) {
   // grab h1, p and first img
-  const title = main.querySelector('div > div > h1');
-  const subTitle = main.querySelector('div > div > p');
-  const heroImage = main.querySelector('div > div > div.images.block');
+  const contentWrapper = main.querySelector('div > div');
+  const title = contentWrapper.firstChild;
+  const subTitle = contentWrapper.getElementsByTagName('p')[0];
+  const heroImage = contentWrapper.querySelector('div.images.block');
 
   console.log('title', title);
   console.log('subTitle', subTitle);
@@ -374,7 +375,6 @@ function buildHeroBlock(main) {
   hero.appendChild(subTitle);
   hero.appendChild(heroImage);
 
-  const contentWrapper = main.querySelector('div > div');
   // insert new hero block as first element in '<main/>'
   contentWrapper.insertBefore(hero, contentWrapper.firstChild);
 }
