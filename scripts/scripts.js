@@ -81,6 +81,13 @@ function wrapSections($sections) {
   });
 }
 
+export function makeLinkRelative(href) {
+  const url = new URL(href);
+  const host = url.hostname;
+  if (host.endsWith('.page') || host.endsWith('.live')) return (`${url.pathname}${url.search}${url.hash}`);
+  return (href);
+}
+
 /**
  * Decorates a block.
  * @param {Element} block The block element
@@ -422,6 +429,18 @@ async function loadEager(doc) {
  */
 async function loadLazy(doc) {
   const main = doc.querySelector('main');
+
+  /* load gnav */
+  const header = document.querySelector('header');
+  header.setAttribute('data-block-name', 'gnav');
+  header.setAttribute('data-gnav-source', '/gnav');
+  loadBlock(header);
+
+  /* load footer */
+  const footer = document.querySelector('footer');
+  footer.setAttribute('data-block-name', 'footer');
+  footer.setAttribute('data-footer-source', `/footer`);
+  loadBlock(footer);
 
   loadBlocks(main);
   loadCSS('/styles/lazy-styles.css');
