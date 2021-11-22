@@ -4,13 +4,13 @@
     max-width: 1200px;
 }
 
-.hero > div:first-child {
+.hero {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
-.hero h1 {
+.hero > div > h1 {
     padding-top: 60px;
     max-width: none;
     min-height: 0;
@@ -23,6 +23,6 @@
     margin-bottom: 0;
 }
 
-.hero picture img {
+.images picture img {
     border-radius: 2px;
 }
