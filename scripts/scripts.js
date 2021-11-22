@@ -357,15 +357,12 @@ function buildImageBlocks(main) {
  * @param {Element} main The container element
  */
 function buildHeroBlock(main) {
-  function isArticlePage() {
-    const relatedArticles = main.getElementsByClassName('related-articles')[0];
-    return relatedArticles !== undefined;
-  }
-
-  if (isArticlePage(main)) {
+  const title = document.querySelector('main div:first-of-type h1:first-of-type');
+  const picture = document.querySelector('main div:first-of-type p picture');
+  // first element must be a h1 and there should be a picture
+  if (title && picture) {
     // grab h1, p and first img
     const contentWrapper = main.querySelector('div');
-    const title = contentWrapper.firstChild;
     const subTitle = contentWrapper.getElementsByTagName('p')[0];
     const heroImage = contentWrapper.getElementsByTagName('div')[0];
 
