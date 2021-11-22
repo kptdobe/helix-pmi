@@ -17,5 +17,9 @@ module.exports = {
     'import/extensions': ['error', {
       js: 'always',
     }],
+    indent: [
+      'error',
+      2,
+    ],
   },
 };

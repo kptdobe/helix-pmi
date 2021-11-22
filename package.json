@@ -4,21 +4,23 @@
   "version": "1.0.0",
   "description": "Starter project for Adobe Helix Pages",
   "scripts": {
+    "dev": "npm run lint && hlx up",
     "test": "karma start karma.config.js",
     "integration-test": "mocha integration/*.test.js",
-    "lint": "eslint ."
+    "lint": "eslint . --fix"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/adobe/helix-pages-starter.git"
+    "url": "git+https://github.com/kptdobe/helix-pmi.git"
   },
   "author": "Adobe",
   "license": "Apache License 2.0",
   "bugs": {
-    "url": "https://github.com/adobe/helix-pages-starter/issues"
+    "url": "https://github.com/kptdobe/helix-pmi/issues"
   },
-  "homepage": "https://github.com/adobe/helix-pages-starter#readme",
+  "homepage": "https://github.com/kptdobe/helix-pmi#readme",
   "devDependencies": {
+    "@adobe/helix-cli": "^14.1.2",
     "@babel/core": "7.16.0",
     "@babel/eslint-parser": "7.16.3",
     "chai": "4.3.4",
