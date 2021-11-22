@@ -39,6 +39,34 @@ export function getMetadata(name) {
 }
 
 /**
+ * forward looking *.metadata.json experiment
+ * fetches metadata.json of page
+ * @param {path} path to *.metadata.json
+ * @returns {Object} containing sanitized meta data
+ */
+export async function getMetadataJson(path) {
+  const resp = await fetch(path.split('.')[0]);
+  const text = await resp.text();
+  const meta = {};
+  if (resp.status === 200 && text && text.includes('<head>')) {
+    const headStr = text.split('<head>')[1].split('</head>')[0];
+    const head = document.createElement('head');
+    head.innerHTML = headStr;
+    const metaTags = head.querySelectorAll(':scope > meta');
+    metaTags.forEach((metaTag) => {
+      const name = metaTag.getAttribute('name') || metaTag.getAttribute('property');
+      const value = metaTag.getAttribute('content');
+      if (meta[name]) {
+        meta[name] += `, ${value}`;
+      } else {
+        meta[name] = value;
+      }
+    });
+  }
+  return meta;
+}
+
+/**
  * Adds one or more URLs to the dependencies for publishing.
  * @param {string|[string]} url The URL(s) to add as dependencies
  */
