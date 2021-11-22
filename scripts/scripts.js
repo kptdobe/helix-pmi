@@ -358,20 +358,25 @@ function buildImageBlocks(main) {
  */
 function buildHeroBlock(main) {
   // grab h1, p and first img
-  const title = [...main.querySelectorAll('div > div > h1')];
-  const subTitle = [...main.querySelectorAll('div > div > p')];
-  const heroImage = [...main.querySelectorAll('div > div > div.images.block')];
+  const title = main.querySelector('div > div > h1');
+  const subTitle = main.querySelector('div > div > p');
+  const heroImage = main.querySelector('div > div > div.images.block');
+
+  console.log('title', title);
+  console.log('subTitle', subTitle);
+  console.log('heroImage', heroImage);
 
   const hero = document.createElement('div');
   hero.classList.add('hero');
 
   // todo do we need Nullchecks here?
-  hero.appendChild(title[0]);
-  hero.appendChild(subTitle[0]);
-  hero.appendChild(heroImage[0]);
+  hero.appendChild(title);
+  hero.appendChild(subTitle);
+  hero.appendChild(heroImage);
 
+  const contentWrapper = main.querySelector('div > div');
   // insert new hero block as first element in '<main/>'
-  main.insertBefore(hero, main.firstChild);
+  contentWrapper.insertBefore(hero, contentWrapper.firstChild);
 }
 
 /**
