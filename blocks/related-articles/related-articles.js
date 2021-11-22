@@ -60,9 +60,13 @@ class RelatedArticles {
       headings.forEach((heading) => {
         // build grid column item
         const navItem = createTag('div', { class: 'footer-nav-item' });
-        const titleId = heading.textContent.trim().toLowerCase().replace(/ /g, '-');
+        const titleId = heading.textContent.trim()
+          .toLowerCase()
+          .replace(/ /g, '-');
         let expanded = false;
-        if (this.desktop.matches) { expanded = true; }
+        if (this.desktop.matches) {
+          expanded = true;
+        }
         // populate grid column item
         const title = createTag('a', {
           class: 'footer-nav-item-title',
@@ -97,26 +101,30 @@ class RelatedArticles {
     const socialWrapper = createTag('div', { class: 'footer-social' });
     // build social icon links
     const socialLinks = createTag('ul', { class: 'footer-social-icons' });
-    socialEl.querySelectorAll('a').forEach((a) => {
-      const domain = a.host.replace(/www./, '').replace(/.com/, '');
-      const supported = ['facebook', 'instagram', 'twitter', 'linkedin'];
-      if (supported.includes(domain)) {
-        // populate social icon links
-        const li = createTag('li', { class: 'footer-social-icon' });
-        const socialIcon = createTag('img', {
-          class: 'footer-social-img',
-          loading: 'lazy',
-          src: `/blocks/footer/${domain}-square.svg`,
-          alt: `${domain} logo`,
-        });
-        a.setAttribute('aria-label', domain);
-        a.textContent = '';
-        a.append(socialIcon);
-        li.append(a);
-        socialLinks.append(li);
-      } else { a.remove(); }
-      socialWrapper.append(socialLinks);
-    });
+    socialEl.querySelectorAll('a')
+      .forEach((a) => {
+        const domain = a.host.replace(/www./, '')
+          .replace(/.com/, '');
+        const supported = ['facebook', 'instagram', 'twitter', 'linkedin'];
+        if (supported.includes(domain)) {
+          // populate social icon links
+          const li = createTag('li', { class: 'footer-social-icon' });
+          const socialIcon = createTag('img', {
+            class: 'footer-social-img',
+            loading: 'lazy',
+            src: `/blocks/footer/${domain}-square.svg`,
+            alt: `${domain} logo`,
+          });
+          a.setAttribute('aria-label', domain);
+          a.textContent = '';
+          a.append(socialIcon);
+          li.append(a);
+          socialLinks.append(li);
+        } else {
+          a.remove();
+        }
+        socialWrapper.append(socialLinks);
+      });
     return socialWrapper;
   };
 
@@ -166,7 +174,9 @@ class RelatedArticles {
   openMenu = (el) => {
     const type = el.classList[0];
     const expandedMenu = document.querySelector(`.${type}[aria-expanded=true]`);
-    if (expandedMenu) { this.closeMenu(expandedMenu); }
+    if (expandedMenu) {
+      this.closeMenu(expandedMenu);
+    }
     if (el.id === 'region-button') {
       window.addEventListener('keydown', this.closeOnEscape);
       window.addEventListener('click', this.closeOnDocClick);
@@ -191,15 +201,17 @@ class RelatedArticles {
 
   onMediaChange = (e) => {
     if (e.matches) {
-      document.querySelectorAll('.footer-nav-item-title').forEach((button) => {
-        button.setAttribute('aria-expanded', true);
-        button.removeEventListener('click', this.toggleMenu);
-      });
+      document.querySelectorAll('.footer-nav-item-title')
+        .forEach((button) => {
+          button.setAttribute('aria-expanded', true);
+          button.removeEventListener('click', this.toggleMenu);
+        });
     } else {
-      document.querySelectorAll('.footer-nav-item-title').forEach((button) => {
-        button.setAttribute('aria-expanded', false);
-        button.addEventListener('click', this.toggleMenu);
-      });
+      document.querySelectorAll('.footer-nav-item-title')
+        .forEach((button) => {
+          button.setAttribute('aria-expanded', false);
+          button.addEventListener('click', this.toggleMenu);
+        });
     }
   };
 }
@@ -211,6 +223,8 @@ async function fetchArticle(url) {
 }
 
 export default async function init(block) {
+  const relatedArticleUrls = block.firstChild.firstChild.querySelectorAll('p');
+  console.log('relatedArticleUrls', relatedArticleUrls);
   const url = block.getAttribute('data-footer-source');
   if (url) {
     const html = await fetchArticle(url);
