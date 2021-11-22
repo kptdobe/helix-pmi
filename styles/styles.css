@@ -4,8 +4,27 @@ main {
     margin: 0 auto;
 }
 
-h3, p {
-    margin: 0 auto;
-    max-width: 600px;
+p {
+    color: #393939;
+    margin: 0 auto 36px;
     padding-bottom: 1rem;
+    max-width: 600px;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 30px;
+}
+
+h3 {
+    margin: 0 auto 18px;
+    max-width: 600px;
+    color: black;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+a {
+    font-weight: 700;
+    text-decoration: underline;
+    color: #0062a3;
 }
