@@ -439,7 +439,7 @@ async function loadLazy(doc) {
   /* load footer */
   const footer = document.querySelector('footer');
   footer.setAttribute('data-block-name', 'footer');
-  footer.setAttribute('data-footer-source', `/footer`);
+  footer.setAttribute('data-footer-source', '/footer');
   loadBlock(footer);
 
   loadBlocks(main);

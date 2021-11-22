@@ -1,6 +1,5 @@
 import createTag from '../gnav/gnav-utils.js';
 
-const GLOBE_IMG = '<img class="footer-region-img" loading="lazy" alt="wireframe globe" src="/blocks/footer/globe.svg">';
 const ADCHOICE_IMG = '<img class="footer-link-img" loading="lazy" alt="AdChoices icon" src="/blocks/footer/adchoices-small.svg">';
 
 class Footer {
@@ -45,7 +44,7 @@ class Footer {
     }
 
     this.el.append(wrapper);
-  }
+  };
 
   decorateGrid = () => {
     const gridBlock = this.body.querySelector('.footer-links > div');
@@ -89,7 +88,7 @@ class Footer {
       navGrid.append(navColumn);
     });
     return navGrid;
-  }
+  };
 
   decorateSocial = () => {
     const socialEl = this.body.querySelector('.social > div');
@@ -119,7 +118,7 @@ class Footer {
       socialWrapper.append(socialLinks);
     });
     return socialWrapper;
-  }
+  };
 
   decoratePrivacy = () => {
     const copyrightEl = this.body.querySelector('div em');
@@ -144,7 +143,7 @@ class Footer {
     });
     privacyWrapper.append(infoLinks);
     return privacyWrapper;
-  }
+  };
 
   toggleMenu = (e) => {
     const button = e.target.closest('[role=button]');
@@ -154,7 +153,7 @@ class Footer {
     } else {
       this.openMenu(button);
     }
-  }
+  };
 
   closeMenu = (el) => {
     if (el.id === 'region-button') {
@@ -162,7 +161,7 @@ class Footer {
       window.removeEventListener('click', this.closeOnDocClick);
     }
     el.setAttribute('aria-expanded', false);
-  }
+  };
 
   openMenu = (el) => {
     const type = el.classList[0];
@@ -173,14 +172,14 @@ class Footer {
       window.addEventListener('click', this.closeOnDocClick);
     }
     el.setAttribute('aria-expanded', true);
-  }
+  };
 
   closeOnEscape = (e) => {
     const button = document.getElementById('region-button');
     if (e.code === 'Escape') {
       this.closeMenu(button);
     }
-  }
+  };
 
   closeOnDocClick = (e) => {
     const button = document.getElementById('region-button');
@@ -188,7 +187,7 @@ class Footer {
     if (a !== button) {
       this.closeMenu(button);
     }
-  }
+  };
 
   onMediaChange = (e) => {
     if (e.matches) {
@@ -222,6 +221,7 @@ export default async function init(block) {
         const footer = new Footer(footerDoc.body, block);
         footer.init();
       } catch (error) {
+        // eslint-disable-next-line no-console
         console.error('Could not create footer.', error.message);
       }
     }
