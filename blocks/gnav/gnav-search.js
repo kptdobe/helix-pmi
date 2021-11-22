@@ -1,4 +1,4 @@
-import { fetchBlogArticleIndex, createOptimizedPicture } from '../../scripts/scripts.js';
+import { createOptimizedPicture } from '../../scripts/scripts.js';
 import createTag from './gnav-utils.js';
 
 function decorateCard(hit) {
@@ -52,7 +52,8 @@ async function populateSearchResults(searchTerms, resultsContainer) {
   resultsContainer.innerHTML = '';
 
   if (terms.length) {
-    await fetchBlogArticleIndex();
+    // TODO
+    // await fetchBlogArticleIndex();
 
     const articles = window.blogIndex.data;
 

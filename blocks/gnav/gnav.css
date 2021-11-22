@@ -349,112 +349,6 @@ button.gnav-toggle:after {
   overflow-y: clip;
 }
 
-.gnav-profile {
-  display: flex;
-  justify-content: center;
-  position: relative;
-  min-width: 54.25px;
-  padding: 0 8px;
-  box-sizing: border-box;
-}
-
-.gnav-profile .gnav-signin {
-  display: flex;
-  align-items: center;
-  font-size: 14px;
-}
-
-.gnav-profile .gnav-profile-button {
-  padding: 0 8px;
-  border: none;
-  background: none;
-  cursor: pointer;
-}
-
-.gnav-profile .gnav-profile-button .gnav-profile-img {
-  display: block;
-  width: 30px;
-  border-radius: 4px;
-}
-
-.gnav-profile .gnav-profile-menu {
-  display: none;
-  position: fixed;
-  right: 0;
-  top: 64px;
-  min-width: 320px;
-  background: #FFF;
-  border: 1px solid #E1E1E1;
-  border-radius: 0 0 4px 4px;
-  overflow: hidden;
-}
-
-.gnav-profile.is-Open .gnav-profile-menu {
-  display: unset;
-}
-
-.gnav-profile-header {
-  display: flex;
-  padding: 20px;
-  align-items: start;
-}
-
-.gnav-profile-header .gnav-profile-img {
-  width: 64px;
-  height: 64px;
-  border-radius: 4px;
-}
-
-.gnav-profile-details {
-  margin-left: 16px;
-  align-self: stretch;
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.gnav-profile-name {
-  font-size: 18px;
-  line-height: 1;
-  margin: 0;
-  font-weight: 700;
-  flex: 0 0 100%;
-}
-
-.gnav-profile-email {
-  color: #707070;
-  font-size: 14px;
-  line-height: 1.25;
-  margin: 0;
-  flex: 0 0 100%;
-}
-
-.gnav-profile-account {
-  margin: 0;
-  text-decoration: underline;
-  font-size: 14px;
-  align-self: flex-end;
-  flex: 0 0 100%;
-}
-
-.gnav-profile-actions {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  font-size: 14px;
-}
-
-.gnav-profile-actions a {
-  padding: 14px 20px;
-  display: block;
-  border-top: 1px solid #E1E1E1;
-  box-sizing: border-box;
-  color: #4b4b4b;
-}
-
-.gnav-profile-menu a:hover {
-  background-color: #FAFAFA;
-}
-
 @media (min-width: 1200px) {
   .gnav {
     grid-template-areas: 'brand navlist search profile logo';
@@ -558,10 +452,6 @@ button.gnav-toggle:after {
     margin-top: unset;
   }
 
-  .gnav-profile .gnav-profile-menu {
-    position: absolute;
-    top: 100%;
-  }
 }
 
 @media (min-width: 1440px) {

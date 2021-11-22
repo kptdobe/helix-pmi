@@ -1,6 +1,5 @@
 import createTag from '../gnav/gnav-utils.js';
 
-const GLOBE_IMG = '<img class="footer-region-img" loading="lazy" alt="wireframe globe" src="/blocks/footer/globe.svg">';
 const ADCHOICE_IMG = '<img class="footer-link-img" loading="lazy" alt="AdChoices icon" src="/blocks/footer/adchoices-small.svg">';
 
 class Footer {
@@ -222,6 +221,7 @@ export default async function init(block) {
         const footer = new Footer(footerDoc.body, block);
         footer.init();
       } catch (error) {
+        // eslint-disable-next-line no-console
         console.error('Could not create footer.', error.message);
       }
     }
