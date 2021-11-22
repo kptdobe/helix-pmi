@@ -373,7 +373,7 @@ function buildHeroBlock(main) {
     const heroText = document.createElement('div');
     hero.classList.add('hero');
 
-    // todo do we need Nullchecks here?
+    // hero -> 2 columns (title, subline | image)
     hero.appendChild(heroText);
     heroText.appendChild(title);
     heroText.appendChild(subTitle);
