@@ -1,7 +1,5 @@
 import createTag from '../gnav/gnav-utils.js';
 
-const ADCHOICE_IMG = '<img class="footer-link-img" loading="lazy" alt="AdChoices icon" src="/blocks/footer/adchoices-small.svg">';
-
 class RelatedArticles {
   constructor(parsedArticles, el) {
     this.el = el;
@@ -17,6 +15,8 @@ class RelatedArticles {
       console.log('parsedArticles[i]', this.parsedArticles[i]);
     }
 
+    // todo append teaser tiles to this.el.parent -> <div class="related-articles"/>
+    // remove rest
     this.el.append(wrapper);
   };
 }
@@ -34,8 +34,24 @@ async function fetchMarkupTextFromArticles(relatedArticlesMarkup) {
 async function fetchArticles(relatedArticleUrls) {
   const relatedArticlesMarkup = [];
 
+  function getUrlForEnvironment(url) {
+    const parsedUrl = new URL(url);
+    const {
+      protocol,
+      hostname,
+      port,
+    } = document.location;
+
+    parsedUrl.hostname = hostname;
+    parsedUrl.protocol = protocol;
+    parsedUrl.port = port;
+
+    return parsedUrl.href;
+  }
+
   for (let i = 0; i < relatedArticleUrls.length; i += 1) {
-    const resp = fetch(`${relatedArticleUrls[i].firstChild.text}.plain.html`);
+    const url = getUrlForEnvironment(relatedArticleUrls[i].firstChild.text);
+    const resp = fetch(`${url}.plain.html`);
     relatedArticlesMarkup.push(resp);
   }
 
@@ -48,8 +64,6 @@ export default async function init(block) {
   if (relatedArticleUrls && relatedArticleUrls.length > 0) {
     const relatedArticlesMarkup = await fetchArticles(relatedArticleUrls);
     const articlesMarkupText = await fetchMarkupTextFromArticles(relatedArticlesMarkup);
-    console.log('relatedArticlesMarkup', relatedArticlesMarkup);
-    console.log('articlesMarkupText', articlesMarkupText);
 
     if (articlesMarkupText) {
       try {
@@ -57,7 +71,6 @@ export default async function init(block) {
         const parsedArticles = [];
 
         for (let i = 0; i < articlesMarkupText.length; i += 1) {
-          console.log('articlesMarkupText[i]', articlesMarkupText[i]);
           parsedArticles.push(parser.parseFromString(articlesMarkupText[i], 'text/html'));
         }
 
