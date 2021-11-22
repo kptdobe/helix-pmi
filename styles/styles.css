@@ -1,17 +1,44 @@
 /* above the fold CSS goes here */
+:root {
+  --color-primary: rgb(0,116,192);
+  --color-primary-hover: #0062a3;
+  --gradient-color: rgba(0,0,0,0.8);
+  --main-font: Lato,Helvetica Neue,Helvetica,Arial,sans-serif;
+  --paddingCompensation: 0px;
+}
 
 main {
     margin: 0 auto;
 }
 
-p {
-    color: #393939;
+body {
+  color: #262626;
+  font-family: var(--main-font);
+}
+
+kendo-content-block a, .wysiwyg a {
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+p a {
+  color: var(--color-primary);
+  transition: color .4s ease-in-out;
+  cursor: pointer;
+}
+
+p{
     margin: 0 auto 36px;
     padding-bottom: 1rem;
     max-width: 600px;
     font-weight: 300;
     font-size: 18px;
     line-height: 30px;
+}
+
+a {
+    font-weight: 700;
+    text-decoration: underline;
 }
 
 h3 {
@@ -21,10 +48,4 @@ h3 {
     font-weight: bold;
     font-size: 16px;
     line-height: 24px;
-}
-
-a {
-    font-weight: 700;
-    text-decoration: underline;
-    color: #0062a3;
 }
