@@ -1,1 +1,11 @@
 /* above the fold CSS goes here */
+
+main {
+    margin: 0 auto;
+}
+
+p {
+    margin: 0 auto;
+    max-width: 600px;
+    padding-bottom: 1rem;
+}
