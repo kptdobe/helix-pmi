@@ -357,24 +357,31 @@ function buildImageBlocks(main) {
  * @param {Element} main The container element
  */
 function buildHeroBlock(main) {
-  // grab h1, p and first img
-  const contentWrapper = main.querySelector('div');
-  const title = contentWrapper.firstChild;
-  const subTitle = contentWrapper.getElementsByTagName('p')[0];
-  const heroImage = contentWrapper.getElementsByTagName('div')[0];
+  function isArticlePage() {
+    const relatedArticles = main.getElementsByClassName('related-articles')[0];
+    return relatedArticles !== undefined;
+  }
 
-  const hero = document.createElement('div');
-  const heroText = document.createElement('div');
-  hero.classList.add('hero');
+  if (isArticlePage(main)) {
+    // grab h1, p and first img
+    const contentWrapper = main.querySelector('div');
+    const title = contentWrapper.firstChild;
+    const subTitle = contentWrapper.getElementsByTagName('p')[0];
+    const heroImage = contentWrapper.getElementsByTagName('div')[0];
 
-  // todo do we need Nullchecks here?
-  hero.appendChild(heroText);
-  heroText.appendChild(title);
-  heroText.appendChild(subTitle);
-  hero.appendChild(heroImage);
+    const hero = document.createElement('div');
+    const heroText = document.createElement('div');
+    hero.classList.add('hero');
 
-  // insert new hero block as first element in '<main><section-wrapper><div>'
-  contentWrapper.insertBefore(hero, contentWrapper.firstChild);
+    // todo do we need Nullchecks here?
+    hero.appendChild(heroText);
+    heroText.appendChild(title);
+    heroText.appendChild(subTitle);
+    hero.appendChild(heroImage);
+
+    // insert new hero block as first element in '<main><section-wrapper><div>'
+    contentWrapper.insertBefore(hero, contentWrapper.firstChild);
+  }
 }
 
 /**
