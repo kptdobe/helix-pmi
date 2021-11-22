@@ -1,1 +1,24 @@
 /* above the fold CSS goes here */
+:root {
+  --color-primary: rgb(0,116,192);
+  --color-primary-hover: #0062a3;
+  --gradient-color: rgba(0,0,0,0.8);
+  --main-font: Lato,Helvetica Neue,Helvetica,Arial,sans-serif;
+  --paddingCompensation: 0px;
+}
+
+body {
+  color: #262626;
+  font-family: var(--main-font);
+}
+
+kendo-content-block a, .wysiwyg a {
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+p a {
+  color: var(--color-primary);
+  transition: color .4s ease-in-out;
+  cursor: pointer;
+}
