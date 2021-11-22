@@ -1,2 +1,2 @@
-# mountpoints:
-#   /: <shared-folder-url>
+mountpoints:
+  /:  https://adobe.sharepoint.com/sites/Helix-PMI/Shared%20Documents/
