@@ -216,21 +216,38 @@ class RelatedArticles {
   };
 }
 
-async function fetchArticle(url) {
-  const resp = await fetch(`${url}.plain.html`);
-  const html = await resp.text();
-  return html;
+async function fetchMarkupTextFromArticles(relatedArticlesMarkup) {
+  const articlesMarkupText = [];
+  for (let i = 0; i < relatedArticlesMarkup.length; i += 1) {
+    const resp = relatedArticlesMarkup[i].text();
+    articlesMarkupText.push(resp);
+  }
+
+  return Promise.all(articlesMarkupText);
+}
+
+async function fetchArticles(relatedArticleUrls) {
+  const relatedArticlesMarkup = [];
+  for (let i = 0; i < relatedArticleUrls.length; i += 1) {
+    const resp = fetch(`${relatedArticleUrls[i].firstChild.text}.plain.html`);
+    relatedArticlesMarkup.push(resp);
+  }
+  return Promise.all(relatedArticlesMarkup);
 }
 
 export default async function init(block) {
   const relatedArticleUrls = block.firstChild.firstChild.querySelectorAll('p');
-  console.log('relatedArticleUrls', relatedArticleUrls);
-  const url = block.getAttribute('data-footer-source');
-  if (url) {
-    const html = await fetchArticle(url);
-    if (html) {
+  if (relatedArticleUrls && relatedArticleUrls.length > 0) {
+    const relatedArticlesMarkup = await fetchArticles(relatedArticleUrls);
+    const articlesMarkupText = await fetchMarkupTextFromArticles(relatedArticlesMarkup);
+    console.log('relatedArticlesMarkup', relatedArticlesMarkup);
+    console.log('articlesMarkupText', articlesMarkupText);
+    if (relatedArticlesMarkup) {
       try {
         const parser = new DOMParser();
+        for (let i = 0; i < relatedArticlesMarkup.length; i++) {
+          relatedArticlesMarkup[i];
+        }
         const footerDoc = parser.parseFromString(html, 'text/html');
         const relatedArticles = new RelatedArticles(footerDoc.body, block);
         await relatedArticles.init();
