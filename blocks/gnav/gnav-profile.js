@@ -30,7 +30,8 @@ function decorateProfileMenu(blockEl, profileEl, profiles, toggle) {
   const accountLink = blockEl.querySelector('div > div > p:nth-child(2) a');
 
   const profileButton = createTag(
-    'button', {
+    'button',
+    {
       class: 'gnav-profile-button',
       'aria-label': displayName,
       'aria-expanded': false,
