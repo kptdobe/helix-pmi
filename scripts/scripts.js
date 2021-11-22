@@ -59,8 +59,7 @@ export function addPublishDependencies(url) {
  */
 export function toClassName(name) {
   return name && typeof name === 'string'
-    ? name.toLowerCase()
-      .replace(/[^0-9a-z]/gi, '-')
+    ? name.toLowerCase().replace(/[^0-9a-z]/gi, '-')
     : '';
 }
 
@@ -104,9 +103,7 @@ export function decorateBlock(block) {
   const blocksWithVariants = ['recommended-articles'];
   blocksWithVariants.forEach((b) => {
     if (blockName.startsWith(`${b}-`)) {
-      const options = blockName.substring(b.length + 1)
-        .split('-')
-        .filter((opt) => !!opt);
+      const options = blockName.substring(b.length + 1).split('-').filter((opt) => !!opt);
       blockName = b;
       block.classList.add(b);
       block.classList.add(...options);
@@ -194,35 +191,32 @@ async function loadBlocks($main) {
  */
 export function readBlockConfig($block) {
   const config = {};
-  $block.querySelectorAll(':scope>div')
-    .forEach(($row) => {
-      if ($row.children) {
-        const $cols = [...$row.children];
-        if ($cols[1]) {
-          const $value = $cols[1];
-          const name = toClassName($cols[0].textContent);
-          let value = '';
-          if ($value.querySelector('a')) {
-            const $as = [...$value.querySelectorAll('a')];
-            if ($as.length === 1) {
-              value = $as[0].href;
-            } else {
-              value = $as.map(($a) => $a.href);
-            }
-          } else if ($value.querySelector('p')) {
-            const $ps = [...$value.querySelectorAll('p')];
-            if ($ps.length === 1) {
-              value = $ps[0].textContent;
-            } else {
-              value = $ps.map(($p) => $p.textContent);
-            }
+  $block.querySelectorAll(':scope>div').forEach(($row) => {
+    if ($row.children) {
+      const $cols = [...$row.children];
+      if ($cols[1]) {
+        const $value = $cols[1];
+        const name = toClassName($cols[0].textContent);
+        let value = '';
+        if ($value.querySelector('a')) {
+          const $as = [...$value.querySelectorAll('a')];
+          if ($as.length === 1) {
+            value = $as[0].href;
           } else {
-            value = $row.children[1].textContent;
+            value = $as.map(($a) => $a.href);
           }
-          config[name] = value;
-        }
+        } else if ($value.querySelector('p')) {
+          const $ps = [...$value.querySelectorAll('p')];
+          if ($ps.length === 1) {
+            value = $ps[0].textContent;
+          } else {
+            value = $ps.map(($p) => $p.textContent);
+          }
+        } else value = $row.children[1].textContent;
+        config[name] = value;
       }
-    });
+    }
+  });
   return config;
 }
 
@@ -232,10 +226,7 @@ export function readBlockConfig($block) {
  * @param {boolean} eager load image eager
  * @param {Array} breakpoints breakpoints and corresponding params (eg. width)
  */
-export function createOptimizedPicture(src, alt = '', eager = false, breakpoints = [{
-  media: '(min-width: 400px)',
-  width: '2000',
-}, { width: '750' }]) {
+export function createOptimizedPicture(src, alt = '', eager = false, breakpoints = [{ media: '(min-width: 400px)', width: '2000' }, { width: '750' }]) {
   const url = new URL(src, window.location.href);
   const picture = document.createElement('picture');
   const { pathname } = url;
@@ -290,26 +281,25 @@ function removeStylingFromImages(main) {
  */
 export function normalizeHeadings($elem, allowedHeadings) {
   const allowed = allowedHeadings.map((h) => h.toLowerCase());
-  $elem.querySelectorAll('h1, h2, h3, h4, h5, h6')
-    .forEach((tag) => {
-      const h = tag.tagName.toLowerCase();
-      if (allowed.indexOf(h) === -1) {
-        // current heading is not in the allowed list -> try first to "promote" the heading
-        let level = parseInt(h.charAt(1), 10) - 1;
-        while (allowed.indexOf(`h${level}`) === -1 && level > 0) {
-          level -= 1;
-        }
-        if (level === 0) {
-          // did not find a match -> try to "downgrade" the heading
-          while (allowed.indexOf(`h${level}`) === -1 && level < 7) {
-            level += 1;
-          }
-        }
-        if (level !== 7) {
-          tag.outerHTML = `<h${level}>${tag.textContent}</h${level}>`;
+  $elem.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach((tag) => {
+    const h = tag.tagName.toLowerCase();
+    if (allowed.indexOf(h) === -1) {
+      // current heading is not in the allowed list -> try first to "promote" the heading
+      let level = parseInt(h.charAt(1), 10) - 1;
+      while (allowed.indexOf(`h${level}`) === -1 && level > 0) {
+        level -= 1;
+      }
+      if (level === 0) {
+        // did not find a match -> try to "downgrade" the heading
+        while (allowed.indexOf(`h${level}`) === -1 && level < 7) {
+          level += 1;
         }
       }
-    });
+      if (level !== 7) {
+        tag.outerHTML = `<h${level}>${tag.textContent}</h${level}>`;
+      }
+    }
+  });
 }
 
 /**
@@ -317,12 +307,11 @@ export function normalizeHeadings($elem, allowedHeadings) {
  * @param {Element} main The container element
  */
 function decoratePictures(main) {
-  main.querySelectorAll('img[src*="/media_"]')
-    .forEach((img, i) => {
-      const newPicture = createOptimizedPicture(img.src, img.alt, !i);
-      const picture = img.closest('picture');
-      if (picture) picture.parentElement.replaceChild(newPicture, picture);
-    });
+  main.querySelectorAll('img[src*="/media_"').forEach((img, i) => {
+    const newPicture = createOptimizedPicture(img.src, img.alt, !i);
+    const picture = img.closest('picture');
+    if (picture) picture.parentElement.replaceChild(newPicture, picture);
+  });
 }
 
 /**
@@ -353,28 +342,6 @@ function buildImageBlocks(main) {
 }
 
 /**
- * builds hero blocks from default content on article pages.
- * @param {Element} main The container element
- */
-function buildHeroBlock(main) {
-  // grab h1, p and first img
-  const title = [...main.querySelectorAll('div > div > h1')];
-  const subTitle = [...main.querySelectorAll('div > div > p')];
-  const heroImage = [...main.querySelectorAll('div > div > div.images.block')];
-
-  const hero = document.createElement('div');
-  hero.classList.add('hero');
-
-  // todo do we need Nullchecks here?
-  hero.appendChild(title[0]);
-  hero.appendChild(subTitle[0]);
-  hero.appendChild(heroImage[0]);
-
-  // insert new hero block as first element in '<main/>'
-  main.insertBefore(hero, main.firstChild);
-}
-
-/**
  * Builds all synthetic blocks in a container element.
  * @param {Element} main The container element
  */
@@ -382,7 +349,6 @@ function buildAutoBlocks(main) {
   removeStylingFromImages(main);
   try {
     buildImageBlocks(main);
-    buildHeroBlock(main);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
@@ -394,10 +360,9 @@ function buildAutoBlocks(main) {
  * @param {Element} main The container element
  */
 function removeEmptySections(main) {
-  main.querySelectorAll(':scope > div:empty')
-    .forEach((div) => {
-      div.remove();
-    });
+  main.querySelectorAll(':scope > div:empty').forEach((div) => {
+    div.remove();
+  });
 }
 
 /**
@@ -439,9 +404,7 @@ async function loadEager(doc) {
   const main = doc.querySelector('main');
   if (main) {
     decorateMain(main);
-    doc.querySelector('body')
-      .classList
-      .add('appear');
+    doc.querySelector('body').classList.add('appear');
 
     const block = doc.querySelector('.block');
     const hasLCPBlock = (block && LCP_BLOCKS.includes(block.getAttribute('data-block-name')));
@@ -476,7 +439,7 @@ async function loadLazy(doc) {
   /* load footer */
   const footer = document.querySelector('footer');
   footer.setAttribute('data-block-name', 'footer');
-  footer.setAttribute('data-footer-source', '/footer');
+  footer.setAttribute('data-footer-source', `/footer`);
   loadBlock(footer);
 
   loadBlocks(main);
