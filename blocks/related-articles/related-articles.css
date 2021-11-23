@@ -26,6 +26,8 @@
 
 .related-articles_item-title {
     font-weight: 700;
+    padding-top: 0.5em;
+    padding-left: 1em;
 }
 
 .related-articles_item picture img {
