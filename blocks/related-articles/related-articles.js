@@ -3,7 +3,7 @@ import {
   fetchDomain,
   fetchTextFromMarkup,
   getCategoryFromUrl,
-  getUrlForEnvironment
+  getUrlForEnvironment,
 } from '../../scripts/utils.js';
 
 class RelatedArticles {

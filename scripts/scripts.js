@@ -476,9 +476,6 @@ async function loadEager(doc) {
  */
 function createSocialBlock(main) {
   const contentWrapper = main.querySelector('div div');
-  console.log('contentWrapper', contentWrapper);
-  console.log('firstChild', contentWrapper.firstChild);
-
   const tag = createTag('div', {
     class: 'social-wrapper block',
     'data-block-name': 'social-wrapper',
