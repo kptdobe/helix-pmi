@@ -10,6 +10,8 @@
  * governing permissions and limitations under the License.
  */
 
+import createTag from '../blocks/gnav/gnav-utils.js';
+
 /**
  * Loads a CSS file.
  * @param {string} href The path to the CSS file
@@ -370,7 +372,7 @@ function buildHeroBlock(main) {
     const heroText = document.createElement('div');
     hero.classList.add('hero');
 
-    // todo do we need Nullchecks here?
+    // hero -> 2 columns (title, subline | image)
     hero.appendChild(heroText);
     heroText.appendChild(title);
     heroText.appendChild(subTitle);
@@ -469,6 +471,24 @@ async function loadEager(doc) {
 }
 
 /**
+ * add social icons to article pages
+ * @param main
+ */
+function createSocialBlock(main) {
+  const title = document.querySelector('main div:first-of-type h1:first-of-type');
+  const picture = document.querySelector('main div:first-of-type p picture');
+  // first element must be a h1 and there should be a picture - only run on articlepages
+  if (title && picture) {
+    const contentWrapper = main.querySelector('div div');
+    const tag = createTag('div', {
+      class: 'social-wrapper block',
+      'data-block-name': 'social-wrapper',
+    });
+    contentWrapper.insertBefore(tag, contentWrapper.getElementsByClassName('related-articles')[0]);
+  }
+}
+
+/**
  * loads everything that doesn't need to be delayed.
  */
 async function loadLazy(doc) {
@@ -485,6 +505,9 @@ async function loadLazy(doc) {
   footer.setAttribute('data-block-name', 'footer');
   footer.setAttribute('data-footer-source', '/footer');
   loadBlock(footer);
+
+  /* add custom blocks to dom */
+  createSocialBlock(main);
 
   loadBlocks(main);
   loadCSS('/styles/lazy-styles.css');
