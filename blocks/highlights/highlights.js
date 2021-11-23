@@ -16,6 +16,8 @@ const LAYOUTS = {
   'highlights--small-small-medium-large-': ['small', 'small2', 'medium', 'large'],
 };
 
+const MORE = 'SCOPRI DI PIÙ';
+
 export default function decorate(block) {
   const container = block.firstElementChild;
   let layout = LAYOUTS.default;
@@ -26,7 +28,8 @@ export default function decorate(block) {
   });
   block.querySelectorAll(':scope > div > div').forEach((div, index) => {
     if (index < 4) {
-      div.classList.add(layout[index]);
+      const size = layout[index];
+      div.classList.add(size);
 
       const link = div.querySelector('a');
       link.innerHTML = '';
@@ -50,6 +53,12 @@ export default function decorate(block) {
       ps.forEach((p) => {
         text.append(p);
       });
+
+      const more = document.createElement('p');
+      if (!size.startsWith('small')) {
+        more.innerHTML = MORE;
+      }
+      text.append(more);
 
       link.append(text);
 
