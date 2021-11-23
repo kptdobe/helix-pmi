@@ -15,11 +15,6 @@
     align-items: center;
     border: none;
     transition: background .4s ease-in-out;
+    text-decoration: none;
+    color: var(--color-heading);
 }
-
-/*.social-wrapper_button:before {*/
-/*    font-family: icomoon, serif;*/
-/*    font-size: 20px;*/
-/*    content: "blub";*/
-/*    color: #fff;*/
-/*}*/
