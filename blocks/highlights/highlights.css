@@ -6,8 +6,8 @@
   display: grid;
   grid-template: repeat(2,1fr)/repeat(5,1fr);
   grid-template-areas:
-        "large large large small small2"
-        "large large large medium medium";
+    "large large large small small2"
+    "large large large medium medium";
   gap: 10px;
   width: 100%;
   max-width: 1200px;
@@ -15,9 +15,23 @@
   min-height: 18vw;
  }
 
- .section-wrapper:first-of-type div .highlights:first-of-type div {
-   max-width: 100%;
- }
+.highlights.highlights--large-medium-small-small- div {
+  grid-template: repeat(2,1fr)/repeat(5,1fr);
+  grid-template-areas:
+    "large large large medium medium"
+    "large large large small small2";
+}
+
+.highlights.highlights--small-small-medium-large- div {
+  grid-template: repeat(2,1fr)/repeat(5,1fr);
+  grid-template-areas:
+    "small small2 large large large"
+    "medium medium large large large";
+}
+
+.section-wrapper:first-of-type div .highlights:first-of-type div {
+  max-width: 100%;
+}
 
 .highlights div div {
   display: flex;

@@ -10,15 +10,23 @@
  * governing permissions and limitations under the License.
  */
 
-const combo = {
+const LAYOUTS = {
   default: ['large', 'small', 'small2', 'medium'],
+  'highlights--large-medium-small-small-': ['large', 'medium', 'small', 'small2'],
+  'highlights--small-small-medium-large-': ['small', 'small2', 'medium', 'large'],
 };
 
 export default async function decorate(block) {
   const container = block.firstElementChild;
+  let layout = LAYOUTS.default;
+  block.classList.forEach((c) => {
+    if (LAYOUTS[c]) {
+      layout = LAYOUTS[c];
+    }
+  });
   block.querySelectorAll(':scope > div > div').forEach((div, index) => {
     if (index < 4) {
-      div.classList.add(combo.default[index]);
+      div.classList.add(layout[index]);
 
       const link = div.querySelector('a');
       link.innerHTML = '';
