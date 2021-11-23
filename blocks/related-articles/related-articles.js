@@ -28,12 +28,8 @@ class RelatedArticles {
         const parsedArticle = this.articleContainers[i].text;
         const titleText = parsedArticle.querySelector('html body div h1').innerHTML;
         title.innerHTML = titleText;
-        const subtitle = parsedArticle.querySelector('html body div p');
+        // const subtitle = parsedArticle.querySelector('html body div p');
         const imageWrapper = parsedArticle.querySelector('html body div p:nth-child(3) picture');
-        console.log('titleText', titleText);
-        console.log('subtitle', subtitle);
-        console.log('imageWrapper', imageWrapper);
-
         const aTag = createTag('a', { class: 'related-articles_link' });
         aTag.href = this.articleContainers[i].url;
         aTag.title = titleText;

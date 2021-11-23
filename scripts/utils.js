@@ -33,7 +33,8 @@ function getUrlForEnvironment(url) {
   parsedUrl.protocol = protocol;
   parsedUrl.port = port;
 
-  return parsedUrl.href;
+  // clean url
+  return parsedUrl.href.replace('\'', '-');
 }
 
 /**
