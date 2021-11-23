@@ -2,7 +2,7 @@
   margin-bottom: 90px;
 }
 
-.highlights div div {
+.highlights div {
   display: grid;
   grid-template: repeat(2,1fr)/repeat(5,1fr);
   grid-template-areas:
@@ -12,34 +12,39 @@
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
+  min-height: 18vw;
  }
 
- .section-wrapper:first-of-type div .highlights:first-of-type div div {
+ .section-wrapper:first-of-type div .highlights:first-of-type div {
    max-width: 100%;
  }
 
-.highlights div div div {
+.highlights div div {
+  display: flex;
+  flex-flow: column;
   position: relative;
-  display: block;
+  color: #fff;
+  justify-content: flex-end;
+  width: 100%;
 }
 
-.highlights div div .large {
+.highlights div .large {
   grid-area: large;
 }
 
-.highlights div div .medium {
+.highlights div .medium {
   grid-area: medium;
 }
 
-.highlights div div .small {
+.highlights div .small {
   grid-area: small;
 }
 
-.highlights div div .small2 {
+.highlights div .small2 {
   grid-area: small2;
 }
 
-.highlights div div picture {
+.highlights div picture {
   position: absolute;
   top: 0;
   left: 0;
@@ -49,7 +54,17 @@
   z-index: -1;
 }
 
-.highlights div div picture img {
+.highlights div picture:after {
+  top: 23px;
+  height: calc(100% - 23px);
+  background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8));
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+}
+
+.highlights div picture img {
   object-fit: cover;
   min-width: 100%;
   min-height: 100%;
@@ -57,22 +72,53 @@
 }
 
 
-.highlights div div a {
+.highlights div a {
   text-decoration: none;
-  color: white;
 }
 
-.highlights div div p {
-  color: white;
+.highlights div .text {
+  display: flex;
+  flex-flow: column;
+  position: relative;
+  justify-content: flex-end;
+  margin: 20px 20px 20px 0;
+  z-index: 1;
+  color: #fff;
 }
 
-.highlights div div h2 {
+.highlights div .large .text {
+  padding-left: calc((100vw - 1170px)/4);
+  padding-bottom: 50px;  
+}
+
+.highlights div .text p {
+  color: #fff;
+  margin: 0 0 16px;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 30px;
+  padding-left: 20px;
+}
+
+.highlights div .text p:last-of-type {
+  text-transform: uppercase;
+  font-size: 12px;
+  line-height: 14px;
+  letter-spacing: .15em;
+  font-weight: 500;
+}
+
+.highlights div .text h2 {
   font-size: 28px;
+  font-weight: 700;
   line-height: 34px;
   color: white;
+  width: 80%;
+  margin: 0;
+  padding-left: 20px;
 }
 
-.highlights div div .large h2 {
+.highlights div .large .text h2 {
   font-size: 44px;
   line-height: 48px;
 }

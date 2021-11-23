@@ -10,45 +10,48 @@
  * governing permissions and limitations under the License.
  */
 
-import { getMetadataJson, createOptimizedPicture } from '../../scripts/scripts.js';
-
 const combo = {
   default: ['large', 'small', 'small2', 'medium'],
 };
 
-export default async function decorate(block, eager) {
-  block.querySelectorAll('a').forEach(async (a, index) => {
-    const u = new URL(a.href);
-    const meta = await getMetadataJson(u.pathname);
-    const title = meta['og:title'];
-    const url = meta['og:url'];
-    const img = meta['og:image'];
-    const description = meta['og:description'];
-
-    if (title && url && img && index < 4) {
-      const div = document.createElement('div');
+export default async function decorate(block) {
+  const container = block.firstElementChild;
+  block.querySelectorAll(':scope > div > div').forEach((div, index) => {
+    if (index < 4) {
       div.classList.add(combo.default[index]);
-      const link = document.createElement('a');
-      link.href = url;
 
-      const picture = createOptimizedPicture(img, eager);
-      link.append(picture);
+      const link = div.querySelector('a');
+      link.innerHTML = '';
+      link.parentNode.replaceWith(link);
 
-      const h2 = document.createElement('h2');
-      [h2.innerHTML] = title.split('|');
-      link.append(h2);
-
-      if (description) {
-        const p = document.createElement('p');
-        p.innerHTML = description;
-        link.append(p);
+      const picture = div.querySelector('picture');
+      if (picture) {
+        picture.parentNode.replaceWith(picture);
+        link.append(picture);
       }
 
-      div.append(link);
+      const text = document.createElement('div');
+      text.classList.add('text');
 
-      a.parentNode.replaceWith(div);
+      const h = div.querySelector('h2');
+      if (h) {
+        text.append(h);
+      }
+
+      const ps = div.querySelectorAll('p');
+      ps.forEach((p) => {
+        text.append(p);
+      });
+
+      link.append(text);
+
+      const parent = div.parentNode;
+      container.append(div);
+      if (!parent.hasChildNodes()) {
+        parent.remove();
+      }
     } else {
-      // a.parentNode.remove();
+      div.remove();
     }
   });
 }
