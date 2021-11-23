@@ -1,7 +1,23 @@
 /**
+ * Returns the article category from a given url.
+ * Example Input: http://localhost:3000/it/chi-siamo/manufacturing-technology-bo
+ * Example Output: chi-siamo
+ * @param url
+ */
+function getCategoryFromUrl(url) {
+  if (url) {
+    const parts = url.split('/');
+    if (parts.length > 3) {
+      return parts[4];
+    }
+  }
+  return url;
+}
+
+/**
  * Returns an url with protocal, hostname and port replaced by the current environment.
- * example input: https://main--helix-pmi--kptdobe.hlx3.page/it/chi-siamo/manufacturing-technology-bo
- * example output: http://localhost:3000/it/chi-siamo/manufacturing-technology-bo
+ * Example Input: https://main--helix-pmi--kptdobe.hlx3.page/it/chi-siamo/manufacturing-technology-bo
+ * Example Output: http://localhost:3000/it/chi-siamo/manufacturing-technology-bo
  * @param url
  * @returns {string}
  */
@@ -52,4 +68,9 @@ async function fetchDomain(urlArray) {
   return Promise.all(relatedArticlesMarkup);
 }
 
-export { getUrlForEnvironment, fetchTextFromMarkup, fetchDomain };
+export {
+  getCategoryFromUrl,
+  getUrlForEnvironment,
+  fetchTextFromMarkup,
+  fetchDomain,
+};

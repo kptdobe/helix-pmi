@@ -1,5 +1,8 @@
 .related-articles {
+}
 
+.related-articles_header {
+   
 }
 
 .related-articles_wrapper {
@@ -19,7 +22,7 @@
     justify-items: center;
 }
 
-.related-articles_item-title{
+.related-articles_item-title {
     font-weight: 700;
 }
 
