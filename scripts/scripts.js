@@ -10,6 +10,8 @@
  * governing permissions and limitations under the License.
  */
 
+import createTag from '../blocks/gnav/gnav-utils.js';
+
 /**
  * Loads a CSS file.
  * @param {string} href The path to the CSS file
@@ -376,8 +378,19 @@ function buildHeroBlock(main) {
     heroText.appendChild(subTitle);
     hero.appendChild(heroImage);
 
+    const container = createTag('div', { class: 'content-wrapper' });
+    // move all content nodes to new wrapper
+    while (contentWrapper.childNodes.length > 0) {
+      container.appendChild(contentWrapper.childNodes[0]);
+    }
+    contentWrapper.append(hero);
+    contentWrapper.append(container);
+    const elementsByClassName = contentWrapper.getElementsByClassName('related-articles');
+    elementsByClassName[0].classList.add('block');
+    elementsByClassName[0].setAttribute('data-block-name', 'related-articles');
+
     // insert new hero block as first element in '<main><section-wrapper><div>'
-    contentWrapper.insertBefore(hero, contentWrapper.firstChild);
+    // contentWrapper.insertBefore(hero, contentWrapper.firstChild);
   }
 }
 

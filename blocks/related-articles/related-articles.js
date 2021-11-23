@@ -3,7 +3,7 @@ import {
   fetchDomain,
   fetchTextFromMarkup,
   getCategoryFromUrl,
-  getUrlForEnvironment
+  getUrlForEnvironment,
 } from '../../scripts/utils.js';
 
 class RelatedArticles {
@@ -59,8 +59,9 @@ class RelatedArticles {
 }
 
 export default async function init(block) {
+  console.log('ping');
   const relatedArticleUrls = block.firstChild.firstChild.querySelectorAll('p');
-
+  console.log('relatedArticleUrls', relatedArticleUrls);
   if (relatedArticleUrls && relatedArticleUrls.length > 0) {
     const relatedArticlesMarkup = await fetchDomain(relatedArticleUrls);
     const articlesMarkupText = await fetchTextFromMarkup(relatedArticlesMarkup);
