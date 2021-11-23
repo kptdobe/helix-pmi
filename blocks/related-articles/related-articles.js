@@ -12,11 +12,15 @@ class RelatedArticles {
 
     for (let i = 0; i < this.parsedArticles.length; i += 1) {
       // todo loop over parsed Articles and create a "related-articles_item" for each.
-      console.log('parsedArticles[i]', this.parsedArticles[i]);
+      const item = createTag('div', { class: 'related-articles_item' });
+      const parsedArticle = this.parsedArticles[i];
+      console.log('parsedArticle', parsedArticle);
+      wrapper.append(item);
     }
 
-    // todo append teaser tiles to this.el.parent -> <div class="related-articles"/>
-    // remove rest
+    // remove 'old' block of related articles links
+    this.el.firstChild.remove();
+    // add wrapper to original div
     this.el.append(wrapper);
   };
 }
