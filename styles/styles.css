@@ -74,3 +74,11 @@ img {
     border-radius: var(--image-border-radius);
     width: 100%;
 }
+
+button {
+    cursor: pointer;
+}
+
+button, input {
+    font-family: var(--main-font);
+}

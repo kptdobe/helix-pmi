@@ -1,7 +1,25 @@
 .social-wrapper {
-    background-color: red;
-    height: 100px;
     display: flex;
     flex-direction: row;
     justify-content: center;
 }
+
+.social-wrapper_button {
+    margin: 0px 10px;
+    width: 55px;
+    height: 55px;
+    background-color: var(--color-primary);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    transition: background .4s ease-in-out;
+}
+
+/*.social-wrapper_button:before {*/
+/*    font-family: icomoon, serif;*/
+/*    font-size: 20px;*/
+/*    content: "blub";*/
+/*    color: #fff;*/
+/*}*/
