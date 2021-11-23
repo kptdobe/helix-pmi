@@ -34,4 +34,5 @@
 
 .related-articles_item a {
     text-decoration: none;
+    color: var(--color-heading);
 }
