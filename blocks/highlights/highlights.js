@@ -16,7 +16,7 @@ const LAYOUTS = {
   'highlights--small-small-medium-large-': ['small', 'small2', 'medium', 'large'],
 };
 
-export default async function decorate(block) {
+export default function decorate(block) {
   const container = block.firstElementChild;
   let layout = LAYOUTS.default;
   block.classList.forEach((c) => {
