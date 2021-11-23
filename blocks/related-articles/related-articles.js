@@ -1,5 +1,5 @@
 import createTag from '../gnav/gnav-utils.js';
-import { getUrlForEnvironment } from '../../scripts/utils.js';
+import { fetchDomain, fetchTextFromMarkup } from '../../scripts/utils.js';
 
 class RelatedArticles {
   constructor(parsedArticles, el) {
@@ -26,34 +26,12 @@ class RelatedArticles {
   };
 }
 
-async function fetchMarkupTextFromArticles(relatedArticlesMarkup) {
-  const articlesMarkupText = [];
-  for (let i = 0; i < relatedArticlesMarkup.length; i += 1) {
-    const resp = relatedArticlesMarkup[i].text();
-    articlesMarkupText.push(resp);
-  }
-
-  return Promise.all(articlesMarkupText);
-}
-
-async function fetchArticles(relatedArticleUrls) {
-  const relatedArticlesMarkup = [];
-
-  for (let i = 0; i < relatedArticleUrls.length; i += 1) {
-    const url = getUrlForEnvironment(relatedArticleUrls[i].firstChild.text);
-    const resp = fetch(`${url}.plain.html`);
-    relatedArticlesMarkup.push(resp);
-  }
-
-  return Promise.all(relatedArticlesMarkup);
-}
-
 export default async function init(block) {
   const relatedArticleUrls = block.firstChild.firstChild.querySelectorAll('p');
 
   if (relatedArticleUrls && relatedArticleUrls.length > 0) {
-    const relatedArticlesMarkup = await fetchArticles(relatedArticleUrls);
-    const articlesMarkupText = await fetchMarkupTextFromArticles(relatedArticlesMarkup);
+    const relatedArticlesMarkup = await fetchDomain(relatedArticleUrls);
+    const articlesMarkupText = await fetchTextFromMarkup(relatedArticlesMarkup);
 
     if (articlesMarkupText) {
       try {
