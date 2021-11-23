@@ -15,8 +15,9 @@ main {
 }
 
 body {
-    color: #262626;
-    font-family: var(--main-font);
+  color: #262626;
+  font-family: var(--main-font);
+  margin: 0;
 }
 
 kendo-content-block a, .wysiwyg a {
