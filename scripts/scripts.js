@@ -10,6 +10,8 @@
  * governing permissions and limitations under the License.
  */
 
+import createTag from '../blocks/gnav/gnav-utils.js';
+
 /**
  * Loads a CSS file.
  * @param {string} href The path to the CSS file
@@ -469,6 +471,22 @@ async function loadEager(doc) {
 }
 
 /**
+ * add social icons to article pages
+ * @param main
+ */
+function createSocialBlock(main) {
+  const contentWrapper = main.querySelector('div div');
+  console.log('contentWrapper', contentWrapper);
+  console.log('firstChild', contentWrapper.firstChild);
+
+  const tag = createTag('div', {
+    class: 'social-wrapper block',
+    'data-block-name': 'social-wrapper',
+  });
+  contentWrapper.insertBefore(tag, contentWrapper.getElementsByClassName('related-articles')[0]);
+}
+
+/**
  * loads everything that doesn't need to be delayed.
  */
 async function loadLazy(doc) {
@@ -485,6 +503,9 @@ async function loadLazy(doc) {
   footer.setAttribute('data-block-name', 'footer');
   footer.setAttribute('data-footer-source', '/footer');
   loadBlock(footer);
+
+  /* add custom blocks to dom */
+  createSocialBlock(main);
 
   loadBlocks(main);
   loadCSS('/styles/lazy-styles.css');
