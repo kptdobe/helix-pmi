@@ -26,3 +26,7 @@
 .related-articles_item picture img {
     height: 200px;
 }
+
+.related-articles_item a {
+    text-decoration: none;
+}
