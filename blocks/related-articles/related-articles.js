@@ -1,4 +1,5 @@
 import createTag from '../gnav/gnav-utils.js';
+import { getUrlForEnvironment } from '../../scripts/utils.js';
 
 class RelatedArticles {
   constructor(parsedArticles, el) {
@@ -37,21 +38,6 @@ async function fetchMarkupTextFromArticles(relatedArticlesMarkup) {
 
 async function fetchArticles(relatedArticleUrls) {
   const relatedArticlesMarkup = [];
-
-  function getUrlForEnvironment(url) {
-    const parsedUrl = new URL(url);
-    const {
-      protocol,
-      hostname,
-      port,
-    } = document.location;
-
-    parsedUrl.hostname = hostname;
-    parsedUrl.protocol = protocol;
-    parsedUrl.port = port;
-
-    return parsedUrl.href;
-  }
 
   for (let i = 0; i < relatedArticleUrls.length; i += 1) {
     const url = getUrlForEnvironment(relatedArticleUrls[i].firstChild.text);
