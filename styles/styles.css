@@ -6,6 +6,7 @@
     --color-heading: #393939;
     --main-font: Lato, Helvetica Neue, Helvetica, Arial, sans-serif;
     --paddingCompensation: 0px;
+    --content-width: 600px;
 }
 
 main {
@@ -31,7 +32,7 @@ p a {
 p {
     margin: 0 auto 36px;
     padding-bottom: 1rem;
-    max-width: 600px;
+    max-width: var(--content-width);
     font-weight: 300;
     font-size: 18px;
     line-height: 30px;
@@ -50,7 +51,7 @@ h1, h2, h3, h4, h5, h6 {
 
 h2, h3, h4, h5, h6 {
     margin: 0 auto 18px;
-    max-width: 600px;
+    max-width: var(--content-width);
 }
 
 h2 {
@@ -61,4 +62,13 @@ h2 {
 h3 {
     font-size: 16px;
     line-height: 24px;
+}
+
+ul, ol, li {
+    margin: 0 auto;
+    max-width: var(--content-width);
+}
+
+img {
+    width: 100%;
 }
