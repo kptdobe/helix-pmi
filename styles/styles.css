@@ -7,6 +7,7 @@
     --main-font: Lato, Helvetica Neue, Helvetica, Arial, sans-serif;
     --paddingCompensation: 0px;
     --content-width: 600px;
+    --image-border-radius: 2px;
 }
 
 main {
@@ -70,5 +71,6 @@ ul, ol, li {
 }
 
 img {
+    border-radius: var(--image-border-radius);
     width: 100%;
 }
