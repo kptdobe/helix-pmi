@@ -2,7 +2,8 @@
 }
 
 .related-articles_header {
-
+    /* hide for now */
+    display: none;
 }
 
 .related-articles_wrapper {
