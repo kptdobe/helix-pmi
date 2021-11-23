@@ -50,16 +50,15 @@ h1, h2, h3, h4, h5, h6 {
 
 h2, h3, h4, h5, h6 {
     margin: 0 auto 18px;
+    max-width: 600px;
 }
 
 h2 {
-    text-align: justify;
     font-size: 20px;
     line-height: 24px;
 }
 
 h3 {
-    max-width: 600px;
     font-size: 16px;
     line-height: 24px;
 }
