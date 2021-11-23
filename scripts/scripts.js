@@ -475,12 +475,17 @@ async function loadEager(doc) {
  * @param main
  */
 function createSocialBlock(main) {
-  const contentWrapper = main.querySelector('div div');
-  const tag = createTag('div', {
-    class: 'social-wrapper block',
-    'data-block-name': 'social-wrapper',
-  });
-  contentWrapper.insertBefore(tag, contentWrapper.getElementsByClassName('related-articles')[0]);
+  const title = document.querySelector('main div:first-of-type h1:first-of-type');
+  const picture = document.querySelector('main div:first-of-type p picture');
+  // first element must be a h1 and there should be a picture - only run on articlepages
+  if (title && picture) {
+    const contentWrapper = main.querySelector('div div');
+    const tag = createTag('div', {
+      class: 'social-wrapper block',
+      'data-block-name': 'social-wrapper',
+    });
+    contentWrapper.insertBefore(tag, contentWrapper.getElementsByClassName('related-articles')[0]);
+  }
 }
 
 /**
