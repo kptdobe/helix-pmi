@@ -1,6 +1,4 @@
-import {
-  makeLinkRelative,
-} from '../../scripts/scripts.js';
+import { makeLinkRelative, } from '../../scripts/scripts.js';
 import createTag from './gnav-utils.js';
 
 const ADOBE_IMG = '<img alt="Adobe" src="/blocks/gnav/adobe-logo.svg">';
@@ -50,7 +48,11 @@ class Gnav {
   };
 
   decorateToggle = (nav) => {
-    const toggle = createTag('button', { class: 'gnav-toggle', 'aria-label': 'Navigation menu', 'aria-expanded': false });
+    const toggle = createTag('button', {
+      class: 'gnav-toggle',
+      'aria-label': 'Navigation menu',
+      'aria-expanded': false
+    });
     const onMediaChange = (e) => {
       if (e.matches) {
         nav.classList.remove(IS_OPEN);
@@ -94,11 +96,13 @@ class Gnav {
 
   decorateLogo = () => {
     const logo = this.body.querySelector('.adobe-logo a');
-    logo.href = makeLinkRelative(logo.href);
-    logo.classList.add('gnav-logo');
-    logo.setAttribute('aria-label', logo.textContent);
-    logo.textContent = '';
-    logo.insertAdjacentHTML('afterbegin', ADOBE_IMG);
+    if (logo) {
+      logo.href = makeLinkRelative(logo.href);
+      logo.classList.add('gnav-logo');
+      logo.setAttribute('aria-label', logo.textContent);
+      logo.textContent = '';
+      logo.insertAdjacentHTML('afterbegin', ADOBE_IMG);
+    }
     return logo;
   };
 
@@ -116,7 +120,8 @@ class Gnav {
       navLink.href = makeLinkRelative(navLink.href);
       const navItem = createTag('div', { class: 'gnav-navitem' });
       const menu = navLink.closest('div');
-      menu.querySelector('h2').remove();
+      menu.querySelector('h2')
+        .remove();
       navItem.appendChild(navLink);
 
       if (menu.childElementCount > 0) {
@@ -190,9 +195,15 @@ class Gnav {
   };
 
   decorateSearchBar = (label, advancedLink) => {
-    const searchBar = createTag('aside', { id: 'gnav-search-bar', class: 'gnav-search-bar' });
+    const searchBar = createTag('aside', {
+      id: 'gnav-search-bar',
+      class: 'gnav-search-bar'
+    });
     const searchField = createTag('div', { class: 'gnav-search-field' }, SEARCH_ICON);
-    const searchInput = createTag('input', { class: 'gnav-search-input', placeholder: label });
+    const searchInput = createTag('input', {
+      class: 'gnav-search-input',
+      placeholder: label
+    });
     const searchResults = createTag('div', { class: 'gnav-search-results' });
 
     searchInput.addEventListener('input', (e) => {
@@ -250,7 +261,8 @@ class Gnav {
       }
     } else {
       this.curtain.classList.add(IS_OPEN);
-      el.querySelector('.gnav-search-input').focus();
+      el.querySelector('.gnav-search-input')
+        .focus();
     }
     this.state.openMenu = el;
   };
