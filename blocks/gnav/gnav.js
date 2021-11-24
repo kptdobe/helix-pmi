@@ -1,6 +1,6 @@
 import { makeLinkRelative } from '../../scripts/scripts.js';
 import createTag from './gnav-utils.js';
-import { getUrlForEnvironment } from '../../scripts/utils.js';
+import { getLocaleFromUrl, getUrlForEnvironment } from '../../scripts/utils.js';
 
 const ADOBE_IMG = '<img alt="Adobe" src="/blocks/gnav/adobe-logo.svg">';
 const BRAND_IMG = '<img src="/blocks/gnav/brand-logo.svg">';
@@ -176,19 +176,31 @@ class Gnav {
   decorateLanguageToggle = () => {
     const languageToggle = this.body.querySelector('.language-toggle');
     if (languageToggle) {
-      const languageToggleEl = createTag('div', { class: 'gnav-language--toggle' });
-      const languageListEl = createTag('ul', {});
+      const languageToggleEl = createTag('div', { class: 'gnav-navitem has-Menu' });
+      const currentLanguage = getLocaleFromUrl(document.location.href)
+        .toUpperCase();
+      const currentLanguageEl = createTag('a', {});
+      currentLanguageEl.innerText = currentLanguage;
+      languageToggleEl.appendChild(currentLanguageEl);
 
+      const languageMenu = createTag('div', {
+        class: 'gnav-navitem-menu small-Variant',
+        id: 'navmenu-5',
+      });
+      languageToggleEl.appendChild(languageMenu);
+
+      const languageListEl = createTag('ul', {});
       const languageNodes = languageToggle.querySelectorAll('p');
       languageNodes.forEach((node) => {
         const listItem = createTag('li', {});
         const aTag = node.firstChild;
         aTag.href = getUrlForEnvironment(aTag.href);
+        aTag.innerHTML.toUpperCase();
         listItem.appendChild(aTag);
         languageListEl.appendChild(listItem);
       });
 
-      languageToggleEl.appendChild(languageListEl);
+      languageMenu.appendChild(languageListEl);
       return languageToggleEl;
     }
     return null;

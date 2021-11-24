@@ -15,6 +15,22 @@ function getCategoryFromUrl(url) {
 }
 
 /**
+ * Returns the locale from a given url.
+ * Example Input: http://localhost:3000/it/chi-siamo/manufacturing-technology-bo
+ * Example Output: it
+ * @param url
+ */
+function getLocaleFromUrl(url) {
+  if (url) {
+    const parts = url.split('/');
+    if (parts.length > 2) {
+      return parts[3];
+    }
+  }
+  return url;
+}
+
+/**
  * Returns an url with protocal, hostname and port replaced by the current environment.
  * Example Input: https://main--helix-pmi--kptdobe.hlx3.page/it/chi-siamo/manufacturing-technology-bo
  * Example Output: http://localhost:3000/it/chi-siamo/manufacturing-technology-bo
@@ -71,6 +87,7 @@ async function fetchDomain(urlArray) {
 
 export {
   getCategoryFromUrl,
+  getLocaleFromUrl,
   getUrlForEnvironment,
   fetchTextFromMarkup,
   fetchDomain,

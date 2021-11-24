@@ -270,8 +270,7 @@ button.gnav-toggle:after {
   display: block;
   width: 100%;
   line-height: 30px;
-  border: 1px solid;
-  border-color: rgb(202, 202, 202);
+  border: 1px solid rgb(202, 202, 202);
   border-radius: 4px;
   padding: 0 30px;
   font-size: 14px;
@@ -420,7 +419,7 @@ button.gnav-toggle:after {
     position: absolute;
     top: 100%;
     border-top: 1px solid #EAEAEA;
-    box-shadow: 0px 3px 3px rgb(0 0 0 / 20%);
+    box-shadow: 0 3px 3px rgb(0 0 0 / 20%);
   }
 
   .gnav-search {
