@@ -507,9 +507,9 @@ async function loadEager(doc) {
   const main = doc.querySelector('main');
   if (main) {
     decorateMain(main);
-    doc.querySelector('body')
-      .classList
-      .add('appear');
+    // doc.querySelector('body')
+    //   .classList
+    //   .add('appear');
 
     const block = doc.querySelector('.block');
     const hasLCPBlock = (block && LCP_BLOCKS.includes(block.getAttribute('data-block-name')));
