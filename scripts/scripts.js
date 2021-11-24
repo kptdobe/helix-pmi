@@ -394,18 +394,25 @@ function buildHeroBlock(main) {
   if (title && picture) {
     // grab h1, p and first img
     const contentWrapper = main.querySelector('div');
-    const subTitle = contentWrapper.getElementsByTagName('p')[0];
-    const heroImage = contentWrapper.getElementsByTagName('div')[0];
+    const subTitle = title.nextElementSibling;
 
     const hero = document.createElement('div');
-    const heroText = document.createElement('div');
     hero.classList.add('hero');
+
+    const heroText = document.createElement('div');
+    heroText.classList.add('hero-text');
 
     // hero -> 2 columns (title, subline | image)
     hero.appendChild(heroText);
     heroText.appendChild(title);
     heroText.appendChild(subTitle);
-    hero.appendChild(heroImage);
+
+    const heroImgWrapper = document.createElement('div');
+    heroImgWrapper.classList.add('hero-image');
+    const parent = picture.parentNode;
+    heroImgWrapper.append(picture);
+    hero.append(heroImgWrapper);
+    parent.remove();
 
     // insert new hero block as first element in '<main><section-wrapper><div>'
     contentWrapper.insertBefore(hero, contentWrapper.firstChild);
@@ -441,8 +448,8 @@ function buildBlogBlock() {
 function buildAutoBlocks(main) {
   removeStylingFromImages(main);
   try {
-    buildImageBlocks(main);
     buildHeroBlock(main);
+    buildImageBlocks(main);
     buildBlogBlock();
   } catch (error) {
     // eslint-disable-next-line no-console
@@ -500,9 +507,6 @@ async function loadEager(doc) {
   const main = doc.querySelector('main');
   if (main) {
     decorateMain(main);
-    doc.querySelector('body')
-      .classList
-      .add('appear');
 
     const block = doc.querySelector('.block');
     const hasLCPBlock = (block && LCP_BLOCKS.includes(block.getAttribute('data-block-name')));
@@ -520,6 +524,7 @@ async function loadEager(doc) {
     };
     await loaded;
   }
+  doc.querySelector('body').classList.add('appear');
 }
 
 /**
@@ -563,7 +568,7 @@ async function loadLazy(doc) {
 
   loadBlocks(main);
   loadCSS('/styles/lazy-styles.css');
-  addFavIcon('/styles/favicon.svg');
+  addFavIcon('/favicon.ico');
 }
 
 /**
