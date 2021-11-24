@@ -7,8 +7,6 @@ class SocialWrapper {
   }
 
   init = async () => {
-    console.log('ping');
-
     //  Facebook
     const facebookButton = createTag('button', { class: 'social-wrapper_button' });
     facebookButton.innerText = 'F';

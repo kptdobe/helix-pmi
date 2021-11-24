@@ -411,6 +411,23 @@ function buildHeroBlock(main) {
   }
 }
 
+function buildBlogBlock() {
+  const blog = document.getElementById('blog');
+  const contentWrapper = document.querySelector('main div:first-of-type');
+  const pTags = contentWrapper.querySelectorAll('p');
+  const blogText = pTags[pTags.length - 1];
+
+  if (blog && blogText) {
+    const tag = createTag('div', {
+      class: 'blog-link block',
+      'data-block-name': 'blog-link',
+    });
+    contentWrapper.appendChild(tag);
+    tag.appendChild(blog);
+    tag.appendChild(blogText);
+  }
+}
+
 /**
  * Builds all synthetic blocks in a container element.
  * @param {Element} main The container element
@@ -420,6 +437,7 @@ function buildAutoBlocks(main) {
   try {
     buildImageBlocks(main);
     buildHeroBlock(main);
+    buildBlogBlock();
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
