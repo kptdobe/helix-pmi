@@ -18,7 +18,13 @@ body {
   color: #262626;
   font-family: var(--main-font);
   margin: 0;
+  visibility: hidden;
 }
+
+body.appear {
+    visibility: unset;
+}
+  
 
 /* gnav placeholder */
 
@@ -33,7 +39,8 @@ header {
 }
 
 header .gnav,
-main .highlights {
+main .highlights,
+main .hero {
   visibility: hidden;
 }
 
@@ -63,7 +70,6 @@ a {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: var(--main-font);
     color: var(--color-heading);
     font-weight: bold;
 }
