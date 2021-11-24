@@ -183,10 +183,7 @@ class Gnav {
       currentLanguageEl.innerText = currentLanguage;
       languageToggleEl.appendChild(currentLanguageEl);
 
-      const languageMenu = createTag('div', {
-        class: 'gnav-navitem-menu small-Variant',
-        id: 'navmenu-5',
-      });
+      const languageMenu = createTag('div', { class: 'gnav-navitem-menu small-Variant' });
       languageToggleEl.appendChild(languageMenu);
 
       const languageListEl = createTag('ul', {});
