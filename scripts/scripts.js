@@ -380,62 +380,76 @@ function buildImageBlocks(main) {
   });
 }
 
+export function isArticle() {
+  return !!document.querySelector('[name="category"]');
+}
+
+export function isBlogEntry() {
+  // TODO fix content -> publication-date
+  return !!document.querySelector('[name="publicaton-date"]');
+}
+
 /**
  * builds hero blocks from default content on article pages.
  * @param {Element} main The container element
  */
 function buildHeroBlock(main) {
-  const title = document.querySelector('main div:first-of-type h1:first-of-type');
-  const picture = document.querySelector('main div:first-of-type p picture');
   // first element must be a h1 and there should be a picture
-  if (title && picture) {
-    // grab h1, p and first img
-    const contentWrapper = main.querySelector('div');
-    const subTitle = title.nextElementSibling;
+  if (isArticle()) {
+    const title = document.querySelector('main div:first-of-type h1:first-of-type');
+    const picture = document.querySelector('main div:first-of-type p picture');
 
-    const hero = document.createElement('div');
-    hero.classList.add('hero');
+    if (title && picture) {
+      // grab h1, p and first img
+      const contentWrapper = main.querySelector('div');
+      const subTitle = title.nextElementSibling;
 
-    const heroText = document.createElement('div');
-    heroText.classList.add('hero-text');
+      const hero = document.createElement('div');
+      hero.classList.add('hero');
 
-    // hero -> 2 columns (title, subline | image)
-    hero.appendChild(heroText);
-    heroText.appendChild(title);
-    heroText.appendChild(subTitle);
+      const heroText = document.createElement('div');
+      heroText.classList.add('hero-text');
 
-    const heroImgWrapper = document.createElement('div');
-    heroImgWrapper.classList.add('hero-image');
-    const parent = picture.parentNode;
-    heroImgWrapper.append(picture);
-    hero.append(heroImgWrapper);
-    parent.remove();
+      // hero -> 2 columns (title, subline | image)
+      hero.appendChild(heroText);
+      heroText.appendChild(title);
+      heroText.appendChild(subTitle);
 
-    // insert new hero block as first element in '<main><section-wrapper><div>'
-    contentWrapper.insertBefore(hero, contentWrapper.firstChild);
+      const heroImgWrapper = document.createElement('div');
+      heroImgWrapper.classList.add('hero-image');
+      const parent = picture.parentNode;
+      heroImgWrapper.append(picture);
+      hero.append(heroImgWrapper);
+      parent.remove();
+
+      // insert new hero block as first element in '<main><section-wrapper><div>'
+      contentWrapper.insertBefore(hero, contentWrapper.firstChild);
+    }
   }
 }
 
 function buildBlogBlock() {
-  const blog = document.getElementById('blog');
-  const contentWrapper = document.querySelector('main div:first-of-type');
-  const pTags = contentWrapper.querySelectorAll('p');
-  const blogText = pTags[pTags.length - 1];
+  if (isBlogEntry()) {
+    const blog = document.getElementById('blog');
+    const contentWrapper = document.querySelector('main div:first-of-type');
+    const pTags = contentWrapper.querySelectorAll('p');
+    const blogText = pTags[pTags.length - 1];
 
-  if (blog && blogText) {
-    const blogATag = blog.querySelector('a');
-    const blogTextATag = blogText.querySelector('a');
-    blogATag.setAttribute('href', makeLinkRelative(blogATag.getAttribute('href')));
-    blogTextATag.setAttribute('href', makeLinkRelative(blogATag.getAttribute('href')));
+    if (blog && blogText) {
+      const blogATag = blog.querySelector('a');
+      const blogTextATag = blogText.querySelector('a');
+      blogATag.setAttribute('href', makeLinkRelative(blogATag.getAttribute('href')));
+      blogTextATag.setAttribute('href', makeLinkRelative(blogATag.getAttribute('href')));
 
-    const tag = document.createElement('div');
-    tag.classList.add('blog-link');
-    tag.classList.add('block');
-    tag.setAttribute('data-block-name', 'blog-link');
+      const tag = document.createElement('div');
+      tag.classList.add('blog-link');
+      tag.classList.add('block');
+      tag.setAttribute('data-block-name', 'blog-link');
 
-    contentWrapper.appendChild(tag);
-    tag.appendChild(blog);
-    tag.appendChild(blogText);
+      contentWrapper.appendChild(tag);
+      tag.appendChild(blog);
+      tag.appendChild(blogText);
+    }
   }
 }
 
