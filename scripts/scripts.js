@@ -11,6 +11,7 @@
  */
 
 import createTag from '../blocks/gnav/gnav-utils.js';
+import { getUrlForEnvironment } from './utils.js';
 
 /**
  * Loads a CSS file.
@@ -418,6 +419,28 @@ function buildHeroBlock(main) {
   }
 }
 
+function buildBlogBlock() {
+  const blog = document.getElementById('blog');
+  const contentWrapper = document.querySelector('main div:first-of-type');
+  const pTags = contentWrapper.querySelectorAll('p');
+  const blogText = pTags[pTags.length - 1];
+
+  if (blog && blogText) {
+    const blogATag = blog.querySelector('a');
+    const blogTextATag = blogText.querySelector('a');
+    blogATag.setAttribute('href', getUrlForEnvironment(blogATag.getAttribute('href')));
+    blogTextATag.setAttribute('href', getUrlForEnvironment(blogATag.getAttribute('href')));
+
+    const tag = createTag('div', {
+      class: 'blog-link block',
+      'data-block-name': 'blog-link',
+    });
+    contentWrapper.appendChild(tag);
+    tag.appendChild(blog);
+    tag.appendChild(blogText);
+  }
+}
+
 /**
  * Builds all synthetic blocks in a container element.
  * @param {Element} main The container element
@@ -427,6 +450,7 @@ function buildAutoBlocks(main) {
   try {
     buildHeroBlock(main);
     buildImageBlocks(main);
+    buildBlogBlock();
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
