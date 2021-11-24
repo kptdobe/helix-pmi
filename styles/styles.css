@@ -18,7 +18,13 @@ body {
   color: #262626;
   font-family: var(--main-font);
   margin: 0;
+  visibility: hidden;
 }
+
+body.appear {
+    visibility: unset;
+}
+  
 
 /* gnav placeholder */
 

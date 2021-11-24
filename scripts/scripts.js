@@ -451,6 +451,8 @@ function buildAutoBlocks(main) {
     buildHeroBlock(main);
     buildImageBlocks(main);
     buildBlogBlock();
+
+    document.body.classList.add('appear');
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
