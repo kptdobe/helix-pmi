@@ -7,8 +7,7 @@ main .hero {
     margin: 0 auto 50px;
     max-width: 1170px;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
 }
 
 .hero h1 {
@@ -29,6 +28,43 @@ main .hero {
     min-width: 100%;
 }
 
+@media screen and (max-width: 959px) {
+    .hero .hero-text {
+        order: 2;
+        z-index: 1;
+        position: absolute;
+    }
+
+    .hero .hero-text h1, .hero .hero-text p {
+        color: #fff;
+    }
+
+    .hero .hero-image {
+        position: relative;
+        min-height: 50vw;
+    }
+
+    .hero .hero-image:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -20px;
+        height: 100%;
+        width: calc(100% + 40px);
+        background: rgba(0,0,0,.44);
+    }
+
+    .hero .hero-image picture img {
+        position: absolute;
+        top: 0;
+        left: -20px;
+        width: calc(100% + 40px);
+        height: 100%;
+        max-width: none;
+        object-fit: cover;
+    }
+}
+
 @media screen and (min-width: 960px) {
     .hero {
         padding: 10em 20px 4em 20px;
@@ -40,7 +76,7 @@ main .hero {
         column-gap: 40px;
     }
 
-    .hero img {
+    .hero .hero-image picture img {
         min-width: 100%;
     }
 }
