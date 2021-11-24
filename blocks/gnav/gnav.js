@@ -187,8 +187,13 @@ class Gnav {
         class: 'gnav-navitem has-Menu language-toggle',
         id: 'id',
       });
-      const currentLanguage = getLocaleFromUrl(document.location.href)
+      let currentLanguage = getLocaleFromUrl(document.location.href)
         .toUpperCase();
+      if (!currentLanguage) {
+        // todo change for prod, current doc structure is 'wrong'
+        currentLanguage = 'IT';
+      }
+
       const currentLanguageEl = createTag('a', {});
       currentLanguageEl.innerText = currentLanguage;
       languageToggleEl.appendChild(currentLanguageEl);
