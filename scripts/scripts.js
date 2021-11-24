@@ -387,8 +387,7 @@ export function isArticle() {
 }
 
 export function isBlogEntry() {
-  // TODO fix content -> publication-date
-  return !!document.querySelector('[name="publicaton-date"]');
+  return !!document.querySelector('[name="publication-date"]');
 }
 
 /**
