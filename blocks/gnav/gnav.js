@@ -1,5 +1,6 @@
-import { makeLinkRelative, } from '../../scripts/scripts.js';
+import { makeLinkRelative } from '../../scripts/scripts.js';
 import createTag from './gnav-utils.js';
+import { getUrlForEnvironment } from '../../scripts/utils.js';
 
 const ADOBE_IMG = '<img alt="Adobe" src="/blocks/gnav/adobe-logo.svg">';
 const BRAND_IMG = '<img src="/blocks/gnav/brand-logo.svg">';
@@ -33,6 +34,11 @@ class Gnav {
       nav.append(mainNav);
     }
 
+    const languageToggle = this.decorateLanguageToggle();
+    if (languageToggle) {
+      nav.append(languageToggle);
+    }
+
     const search = this.decorateSearch();
     if (search) {
       nav.append(search);
@@ -51,7 +57,7 @@ class Gnav {
     const toggle = createTag('button', {
       class: 'gnav-toggle',
       'aria-label': 'Navigation menu',
-      'aria-expanded': false
+      'aria-expanded': false,
     });
     const onMediaChange = (e) => {
       if (e.matches) {
@@ -167,6 +173,27 @@ class Gnav {
     return menu;
   };
 
+  decorateLanguageToggle = () => {
+    const languageToggle = this.body.querySelector('.language-toggle');
+    if (languageToggle) {
+      const languageToggleEl = createTag('div', { class: 'gnav-language--toggle' });
+      const languageListEl = createTag('ul', {});
+
+      const languageNodes = languageToggle.querySelectorAll('p');
+      languageNodes.forEach((node) => {
+        const listItem = createTag('li', {});
+        const aTag = node.firstChild;
+        aTag.href = getUrlForEnvironment(aTag.href);
+        listItem.appendChild(aTag);
+        languageListEl.appendChild(listItem);
+      });
+
+      languageToggleEl.appendChild(languageListEl);
+      return languageToggleEl;
+    }
+    return null;
+  };
+
   decorateSearch = () => {
     const searchBlock = this.body.querySelector('.search');
     if (searchBlock) {
@@ -197,12 +224,12 @@ class Gnav {
   decorateSearchBar = (label, advancedLink) => {
     const searchBar = createTag('aside', {
       id: 'gnav-search-bar',
-      class: 'gnav-search-bar'
+      class: 'gnav-search-bar',
     });
     const searchField = createTag('div', { class: 'gnav-search-field' }, SEARCH_ICON);
     const searchInput = createTag('input', {
       class: 'gnav-search-input',
-      placeholder: label
+      placeholder: label,
     });
     const searchResults = createTag('div', { class: 'gnav-search-results' });
 
