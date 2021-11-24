@@ -1,8 +1,9 @@
+import { makeLinkRelative } from '../../scripts/scripts.js';
+
 import createTag, {
   fetchDomain,
   fetchTextFromMarkup,
   getCategoryFromUrl,
-  getUrlForEnvironment,
 } from '../../scripts/utils.js';
 
 class RelatedArticles {
@@ -66,7 +67,7 @@ export default async function init(block) {
         const articleContainers = [];
 
         for (let i = 0; i < articlesMarkupText.length; i += 1) {
-          const transformedUrl = getUrlForEnvironment(relatedArticleUrls[i].querySelector('a')
+          const transformedUrl = makeLinkRelative(relatedArticleUrls[i].querySelector('a')
             .getAttribute('href'));
           const articleContainer = {
             text: parser.parseFromString(articlesMarkupText[i], 'text/html'),

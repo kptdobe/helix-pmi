@@ -10,8 +10,6 @@
  * governing permissions and limitations under the License.
  */
 
-import createTag, { getUrlForEnvironment } from './utils.js';
-
 /**
  * Loads a CSS file.
  * @param {string} href The path to the CSS file
@@ -427,13 +425,14 @@ function buildBlogBlock() {
   if (blog && blogText) {
     const blogATag = blog.querySelector('a');
     const blogTextATag = blogText.querySelector('a');
-    blogATag.setAttribute('href', getUrlForEnvironment(blogATag.getAttribute('href')));
-    blogTextATag.setAttribute('href', getUrlForEnvironment(blogATag.getAttribute('href')));
+    blogATag.setAttribute('href', makeLinkRelative(blogATag.getAttribute('href')));
+    blogTextATag.setAttribute('href', makeLinkRelative(blogATag.getAttribute('href')));
 
-    const tag = createTag('div', {
-      class: 'blog-link block',
-      'data-block-name': 'blog-link',
-    });
+    const tag = document.createElement('div');
+    tag.classList.add('blog-link');
+    tag.classList.add('block');
+    tag.setAttribute('data-block-name', 'blog-link');
+
     contentWrapper.appendChild(tag);
     tag.appendChild(blog);
     tag.appendChild(blogText);
@@ -538,10 +537,12 @@ function createSocialBlock(main) {
   // first element must be a h1 and there should be a picture - only run on articlepages
   if (title && picture) {
     const contentWrapper = main.querySelector('div div');
-    const tag = createTag('div', {
-      class: 'social-wrapper block',
-      'data-block-name': 'social-wrapper',
-    });
+
+    const tag = document.createElement('div');
+    tag.classList.add('social-wrapper');
+    tag.classList.add('block');
+    tag.setAttribute('data-block-name', 'social-wrapper');
+
     contentWrapper.insertBefore(tag, contentWrapper.getElementsByClassName('related-articles')[0]);
   }
 }

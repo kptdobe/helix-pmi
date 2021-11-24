@@ -1,5 +1,5 @@
 import { makeLinkRelative } from '../../scripts/scripts.js';
-import createTag, { getLocaleFromUrl, getUrlForEnvironment } from '../../scripts/utils.js';
+import createTag, { getLocaleFromUrl } from '../../scripts/utils.js';
 
 const ADOBE_IMG = '<img alt="Adobe" src="/blocks/gnav/adobe-logo.svg">';
 const BRAND_IMG = '<img src="/blocks/gnav/brand-logo.svg">';
@@ -119,6 +119,7 @@ class Gnav {
     return null;
   };
 
+  // eslint-disable-next-line class-methods-use-this
   addNavLinkAttributes(navLink, id) {
     navLink.setAttribute('role', 'button');
     navLink.setAttribute('aria-expanded', false);
@@ -206,7 +207,7 @@ class Gnav {
       languageNodes.forEach((node) => {
         const listItem = createTag('li', {});
         const aTag = node.firstChild;
-        aTag.href = getUrlForEnvironment(aTag.href);
+        aTag.href = makeLinkRelative(aTag.href);
         aTag.innerHTML.toUpperCase();
         listItem.appendChild(aTag);
         languageListEl.appendChild(listItem);

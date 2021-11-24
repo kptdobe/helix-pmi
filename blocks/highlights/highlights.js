@@ -10,6 +10,8 @@
  * governing permissions and limitations under the License.
  */
 
+import { makeLinkRelative } from '../../scripts/scripts.js';
+
 const LAYOUTS = {
   default: ['large', 'small', 'small2', 'medium'],
   'highlights--large-medium-small-small-': ['large', 'medium', 'small', 'small2'],
@@ -35,6 +37,7 @@ export default function decorate(block) {
 
       const link = div.querySelector('a');
       link.innerHTML = '';
+      link.href = makeLinkRelative(link.href);
       link.parentNode.replaceWith(link);
 
       const picture = div.querySelector('picture');
