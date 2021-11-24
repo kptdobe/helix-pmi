@@ -120,6 +120,12 @@ class Gnav {
     return null;
   };
 
+  addNavLinkAttributes(navLink, id) {
+    navLink.setAttribute('role', 'button');
+    navLink.setAttribute('aria-expanded', false);
+    navLink.setAttribute('aria-controls', id);
+  }
+
   buildMainNav = (navLinks) => {
     const mainNav = createTag('div', { class: 'gnav-mainnav' });
     navLinks.forEach((navLink, idx) => {
@@ -134,10 +140,7 @@ class Gnav {
         const id = `navmenu-${idx}`;
         menu.id = id;
         navItem.classList.add('has-Menu');
-        navLink.setAttribute('role', 'button');
-        navLink.setAttribute('aria-expanded', false);
-        navLink.setAttribute('aria-controls', id);
-
+        this.addNavLinkAttributes(navLink, id);
         const decoratedMenu = this.decorateMenu(navItem, navLink, menu);
         navItem.appendChild(decoratedMenu);
       }
@@ -159,6 +162,11 @@ class Gnav {
       container.append(...Array.from(menu.children));
       menu.append(container);
     }
+    this.addNavEvents(navLink, navItem);
+    return menu;
+  };
+
+  addNavEvents(navLink, navItem) {
     navLink.addEventListener('focus', () => {
       window.addEventListener('keydown', this.toggleOnSpace);
     });
@@ -170,19 +178,22 @@ class Gnav {
       e.stopPropagation();
       this.toggleMenu(navItem);
     });
-    return menu;
-  };
+  }
 
   decorateLanguageToggle = () => {
     const languageToggle = this.body.querySelector('.language-toggle');
     if (languageToggle) {
-      const languageToggleEl = createTag('div', { class: 'gnav-navitem has-Menu' });
+      const languageToggleEl = createTag('div', {
+        class: 'gnav-navitem has-Menu language-toggle',
+        id: 'id',
+      });
       const currentLanguage = getLocaleFromUrl(document.location.href)
         .toUpperCase();
       const currentLanguageEl = createTag('a', {});
       currentLanguageEl.innerText = currentLanguage;
       languageToggleEl.appendChild(currentLanguageEl);
 
+      const id = 'language-toggle';
       const languageMenu = createTag('div', { class: 'gnav-navitem-menu small-Variant' });
       languageToggleEl.appendChild(languageMenu);
 
@@ -198,6 +209,9 @@ class Gnav {
       });
 
       languageMenu.appendChild(languageListEl);
+
+      this.addNavLinkAttributes(currentLanguageEl, id);
+      this.addNavEvents(currentLanguageEl, languageToggleEl);
       return languageToggleEl;
     }
     return null;
