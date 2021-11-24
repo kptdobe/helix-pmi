@@ -570,7 +570,7 @@ async function loadLazy(doc) {
 
   loadBlocks(main);
   loadCSS('/styles/lazy-styles.css');
-  addFavIcon('/styles/favicon.svg');
+  addFavIcon('/favicon.ico');
 }
 
 /**
