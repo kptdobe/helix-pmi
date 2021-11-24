@@ -53,40 +53,67 @@ class Footer {
     // build grid container
     const navGrid = createTag('div', { class: 'footer-nav-grid' });
     const columns = gridBlock.querySelectorAll('div');
+    return this.decorateInit(navGrid, columns);
+    //return navGrid;
+  };
+
+  decorateInit = (navGrid, columns) => {
+    var count = 0;
     columns.forEach((column) => {
-      // build grid column
-      const navColumn = createTag('div', { class: 'footer-nav-column' });
-      const headings = column.querySelectorAll('h2');
-      headings.forEach((heading) => {
-        // build grid column item
+      if (count < 3) {
+        // build grid column
+        const navColumn = createTag('div', { class: 'footer-nav-column' });
+        const headings = column.querySelectorAll('h2');
+        headings.forEach((heading) => {
+          // build grid column item
+          console.log(heading);
+          const navItem = createTag('div', { class: 'footer-nav-item' });
+          const titleId = heading.textContent.trim().toLowerCase().replace(/ /g, '-');
+          let expanded = false;
+          if (this.desktop.matches) { expanded = true; }
+          // populate grid column item
+          const title = createTag('a', {
+            class: 'footer-nav-item-title',
+            role: 'button',
+            'aria-expanded': expanded,
+            'aria-controls': `${titleId}-menu`,
+          });
+          title.textContent = heading.textContent;
+          navItem.append(title);
+          const linksContainer = heading.nextElementSibling;
+          linksContainer.classList = 'footer-nav-item-links';
+          linksContainer.id = `${titleId}-menu`;
+          if (!this.desktop.matches) {
+            title.addEventListener('click', this.toggleMenu);
+          }
+          const links = linksContainer.querySelectorAll('li');
+          links.forEach((link) => {
+            link.classList.add('footer-nav-item-link');
+          });
+          navItem.append(linksContainer);
+          navColumn.append(navItem);
+        });
+        navGrid.append(navColumn);
+      }
+      else {
+        
         const navItem = createTag('div', { class: 'footer-nav-item' });
-        const titleId = heading.textContent.trim().toLowerCase().replace(/ /g, '-');
-        let expanded = false;
-        if (this.desktop.matches) { expanded = true; }
-        // populate grid column item
+        // const titleId = heading.textContent.trim().toLowerCase().replace(/ /g, '-');
         const title = createTag('a', {
           class: 'footer-nav-item-title',
           role: 'button',
-          'aria-expanded': expanded,
-          'aria-controls': `${titleId}-menu`,
+          // 'aria-expanded': expanded
+          // 'aria-controls': `${titleId}-menu`,
         });
-        title.textContent = heading.textContent;
+        title.textContent = "Seguici";
         navItem.append(title);
-        const linksContainer = heading.nextElementSibling;
-        linksContainer.classList = 'footer-nav-item-links';
-        linksContainer.id = `${titleId}-menu`;
-        if (!this.desktop.matches) {
-          title.addEventListener('click', this.toggleMenu);
-        }
-        const links = linksContainer.querySelectorAll('li');
-        links.forEach((link) => {
-          link.classList.add('footer-nav-item-link');
-        });
-        navItem.append(linksContainer);
-        navColumn.append(navItem);
-      });
-      navGrid.append(navColumn);
+        navGrid.append(navItem);
+        const social = this.decorateSocial();
+        navGrid.append(social);
+      }
+      count += 1;
     });
+
     return navGrid;
   };
 
@@ -99,7 +126,7 @@ class Footer {
     const socialLinks = createTag('ul', { class: 'footer-social-icons' });
     socialEl.querySelectorAll('a').forEach((a) => {
       const domain = a.host.replace(/www./, '').replace(/.com/, '');
-      const supported = ['facebook', 'instagram', 'twitter', 'linkedin'];
+      const supported = ['facebook', 'twitter', 'instagram', 'linkedin'];
       if (supported.includes(domain)) {
         // populate social icon links
         const li = createTag('li', { class: 'footer-social-icon' });
