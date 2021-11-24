@@ -111,10 +111,12 @@ function wrapSections($sections) {
 }
 
 export function makeLinkRelative(href) {
-  const url = new URL(href);
-  const host = url.hostname;
-  if (host.endsWith('.page') || host.endsWith('.live')) return (`${url.pathname}${url.search}${url.hash}`);
-  return (href);
+  if (!href.startsWith('/')) {
+    const url = new URL(href);
+    const host = url.hostname;
+    if (host.endsWith('.page') || host.endsWith('.live')) return (`${url.pathname}${url.search}${url.hash}`);
+  }
+  return href;
 }
 
 /**
