@@ -11,6 +11,7 @@
  */
 
 import createTag from '../blocks/gnav/gnav-utils.js';
+import { getUrlForEnvironment } from './utils.js';
 
 /**
  * Loads a CSS file.
@@ -418,6 +419,11 @@ function buildBlogBlock() {
   const blogText = pTags[pTags.length - 1];
 
   if (blog && blogText) {
+    const blogATag = blog.querySelector('a');
+    const blogTextATag = blogText.querySelector('a');
+    blogATag.setAttribute('href', getUrlForEnvironment(blogATag.getAttribute('href')));
+    blogTextATag.setAttribute('href', getUrlForEnvironment(blogATag.getAttribute('href')));
+
     const tag = createTag('div', {
       class: 'blog-link block',
       'data-block-name': 'blog-link',
