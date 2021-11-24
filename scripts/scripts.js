@@ -10,8 +10,7 @@
  * governing permissions and limitations under the License.
  */
 
-import createTag from '../blocks/gnav/gnav-utils.js';
-import { getUrlForEnvironment } from './utils.js';
+import createTag, { getUrlForEnvironment } from './utils.js';
 
 /**
  * Loads a CSS file.
@@ -524,7 +523,9 @@ async function loadEager(doc) {
     };
     await loaded;
   }
-  doc.querySelector('body').classList.add('appear');
+  doc.querySelector('body')
+    .classList
+    .add('appear');
 }
 
 /**

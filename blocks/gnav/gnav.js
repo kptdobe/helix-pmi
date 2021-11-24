@@ -1,6 +1,5 @@
 import { makeLinkRelative } from '../../scripts/scripts.js';
-import createTag from './gnav-utils.js';
-import { getLocaleFromUrl, getUrlForEnvironment } from '../../scripts/utils.js';
+import createTag, { getLocaleFromUrl, getUrlForEnvironment } from '../../scripts/utils.js';
 
 const ADOBE_IMG = '<img alt="Adobe" src="/blocks/gnav/adobe-logo.svg">';
 const BRAND_IMG = '<img src="/blocks/gnav/brand-logo.svg">';

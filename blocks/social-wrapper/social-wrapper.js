@@ -1,4 +1,4 @@
-import createTag from '../gnav/gnav-utils.js';
+import createTag from '../../scripts/utils.js';
 
 class SocialWrapper {
   constructor(el) {

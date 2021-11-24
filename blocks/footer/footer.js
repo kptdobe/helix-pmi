@@ -1,4 +1,4 @@
-import createTag from '../gnav/gnav-utils.js';
+import createTag from '../../scripts/utils.js';
 
 const ADCHOICE_IMG = '<img class="footer-link-img" loading="lazy" alt="AdChoices icon" src="/blocks/footer/adchoices-small.svg">';
 

@@ -1,5 +1,4 @@
-import createTag from '../gnav/gnav-utils.js';
-import {
+import createTag, {
   fetchDomain,
   fetchTextFromMarkup,
   getCategoryFromUrl,

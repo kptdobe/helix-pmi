@@ -1,5 +1,5 @@
 import { createOptimizedPicture } from '../../scripts/scripts.js';
-import createTag from './gnav-utils.js';
+import createTag from '../../scripts/utils.js';
 
 function decorateCard(hit) {
   const {
