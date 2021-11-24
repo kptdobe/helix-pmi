@@ -467,7 +467,7 @@ export function decorateMain(main) {
   decorateBlocks(main);
 }
 
-const LCP_BLOCKS = []; // add your LCP blocks to the list
+const LCP_BLOCKS = ['highlights', 'hero']; // add your LCP blocks to the list
 
 /**
  * loads everything needed to get to LCP.

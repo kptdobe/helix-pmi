@@ -19,6 +19,8 @@ const LAYOUTS = {
 const MORE = 'SCOPRI DI PIÙ';
 
 export default function decorate(block) {
+  if (block.getAttribute('data-decorated')) return;
+  block.setAttribute('data-decorated', 'true');
   const container = block.firstElementChild;
   let layout = LAYOUTS.default;
   block.classList.forEach((c) => {

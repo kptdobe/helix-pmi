@@ -1,3 +1,7 @@
+body main .highlights {
+  visibility: unset;
+}
+
 .highlights {
   margin-bottom: 90px;
 }

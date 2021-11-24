@@ -20,6 +20,23 @@ body {
   margin: 0;
 }
 
+/* gnav placeholder */
+
+header {
+  display: flex;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 65px;
+  background-color: var(--color-white);
+  z-index: 3;
+}
+
+header .gnav,
+main .highlights {
+  visibility: hidden;
+}
+
 kendo-content-block a, .wysiwyg a {
     font-weight: 700;
     text-decoration: underline;
