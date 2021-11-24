@@ -1,28 +1,46 @@
-.hero {
-    padding: 2em 0 4em 0;
-    margin: 0 auto;
-    max-width: 1200px;
+main .hero {
+    visibility: unset;
 }
 
 .hero {
+    padding: 10em 20px 4em 20px;
+    margin: 0 auto 50px;
+    max-width: 1170px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
-.hero > div > h1 {
+.hero h1 {
     padding-top: 60px;
     max-width: none;
     min-height: 0;
-    margin-bottom: 100px;
+    margin-bottom: 20px;
     color: #000;
     font-weight: 700;
 }
 
 .hero p {
+    margin-top: 20px;
     margin-bottom: 0;
 }
 
-.images picture img {
-    max-width: 700px;
+.hero picture img {
+    min-width: 100%;
+}
+
+@media screen and (min-width: 960px) {
+    .hero {
+        padding: 10em 20px 4em 20px;
+        margin: 0 auto 50px;
+        max-width: 1170px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        column-gap: 40px;
+    }
+
+    .hero img {
+        min-width: 100%;
+    }
 }

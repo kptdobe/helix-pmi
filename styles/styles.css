@@ -33,7 +33,8 @@ header {
 }
 
 header .gnav,
-main .highlights {
+main .highlights,
+main .hero {
   visibility: hidden;
 }
 
