@@ -1,7 +1,6 @@
-import {
-  makeLinkRelative,
-} from '../../scripts/scripts.js';
+import { makeLinkRelative } from '../../scripts/scripts.js';
 import createTag from './gnav-utils.js';
+import { getLocaleFromUrl, getUrlForEnvironment } from '../../scripts/utils.js';
 
 const ADOBE_IMG = '<img alt="Adobe" src="/blocks/gnav/adobe-logo.svg">';
 const BRAND_IMG = '<img src="/blocks/gnav/brand-logo.svg">';
@@ -35,6 +34,11 @@ class Gnav {
       nav.append(mainNav);
     }
 
+    const languageToggle = this.decorateLanguageToggle();
+    if (languageToggle) {
+      nav.append(languageToggle);
+    }
+
     const search = this.decorateSearch();
     if (search) {
       nav.append(search);
@@ -50,7 +54,11 @@ class Gnav {
   };
 
   decorateToggle = (nav) => {
-    const toggle = createTag('button', { class: 'gnav-toggle', 'aria-label': 'Navigation menu', 'aria-expanded': false });
+    const toggle = createTag('button', {
+      class: 'gnav-toggle',
+      'aria-label': 'Navigation menu',
+      'aria-expanded': false,
+    });
     const onMediaChange = (e) => {
       if (e.matches) {
         nav.classList.remove(IS_OPEN);
@@ -94,11 +102,13 @@ class Gnav {
 
   decorateLogo = () => {
     const logo = this.body.querySelector('.adobe-logo a');
-    logo.href = makeLinkRelative(logo.href);
-    logo.classList.add('gnav-logo');
-    logo.setAttribute('aria-label', logo.textContent);
-    logo.textContent = '';
-    logo.insertAdjacentHTML('afterbegin', ADOBE_IMG);
+    if (logo) {
+      logo.href = makeLinkRelative(logo.href);
+      logo.classList.add('gnav-logo');
+      logo.setAttribute('aria-label', logo.textContent);
+      logo.textContent = '';
+      logo.insertAdjacentHTML('afterbegin', ADOBE_IMG);
+    }
     return logo;
   };
 
@@ -110,23 +120,27 @@ class Gnav {
     return null;
   };
 
+  addNavLinkAttributes(navLink, id) {
+    navLink.setAttribute('role', 'button');
+    navLink.setAttribute('aria-expanded', false);
+    navLink.setAttribute('aria-controls', id);
+  }
+
   buildMainNav = (navLinks) => {
     const mainNav = createTag('div', { class: 'gnav-mainnav' });
     navLinks.forEach((navLink, idx) => {
       navLink.href = makeLinkRelative(navLink.href);
       const navItem = createTag('div', { class: 'gnav-navitem' });
       const menu = navLink.closest('div');
-      menu.querySelector('h2').remove();
+      menu.querySelector('h2')
+        .remove();
       navItem.appendChild(navLink);
 
       if (menu.childElementCount > 0) {
         const id = `navmenu-${idx}`;
         menu.id = id;
         navItem.classList.add('has-Menu');
-        navLink.setAttribute('role', 'button');
-        navLink.setAttribute('aria-expanded', false);
-        navLink.setAttribute('aria-controls', id);
-
+        this.addNavLinkAttributes(navLink, id);
         const decoratedMenu = this.decorateMenu(navItem, navLink, menu);
         navItem.appendChild(decoratedMenu);
       }
@@ -148,6 +162,11 @@ class Gnav {
       container.append(...Array.from(menu.children));
       menu.append(container);
     }
+    this.addNavEvents(navLink, navItem);
+    return menu;
+  };
+
+  addNavEvents(navLink, navItem) {
     navLink.addEventListener('focus', () => {
       window.addEventListener('keydown', this.toggleOnSpace);
     });
@@ -159,7 +178,48 @@ class Gnav {
       e.stopPropagation();
       this.toggleMenu(navItem);
     });
-    return menu;
+  }
+
+  decorateLanguageToggle = () => {
+    const languageToggle = this.body.querySelector('.language-toggle');
+    if (languageToggle) {
+      const languageToggleEl = createTag('div', {
+        class: 'gnav-navitem has-Menu language-toggle',
+        id: 'id',
+      });
+      let currentLanguage = getLocaleFromUrl(document.location.href)
+        .toUpperCase();
+      if (!currentLanguage) {
+        // todo change for prod, current doc structure is 'wrong'
+        currentLanguage = 'IT';
+      }
+
+      const currentLanguageEl = createTag('a', {});
+      currentLanguageEl.innerText = currentLanguage;
+      languageToggleEl.appendChild(currentLanguageEl);
+
+      const id = 'language-toggle';
+      const languageMenu = createTag('div', { class: 'gnav-navitem-menu small-Variant' });
+      languageToggleEl.appendChild(languageMenu);
+
+      const languageListEl = createTag('ul', {});
+      const languageNodes = languageToggle.querySelectorAll('p');
+      languageNodes.forEach((node) => {
+        const listItem = createTag('li', {});
+        const aTag = node.firstChild;
+        aTag.href = getUrlForEnvironment(aTag.href);
+        aTag.innerHTML.toUpperCase();
+        listItem.appendChild(aTag);
+        languageListEl.appendChild(listItem);
+      });
+
+      languageMenu.appendChild(languageListEl);
+
+      this.addNavLinkAttributes(currentLanguageEl, id);
+      this.addNavEvents(currentLanguageEl, languageToggleEl);
+      return languageToggleEl;
+    }
+    return null;
   };
 
   decorateSearch = () => {
@@ -190,9 +250,15 @@ class Gnav {
   };
 
   decorateSearchBar = (label, advancedLink) => {
-    const searchBar = createTag('aside', { id: 'gnav-search-bar', class: 'gnav-search-bar' });
+    const searchBar = createTag('aside', {
+      id: 'gnav-search-bar',
+      class: 'gnav-search-bar',
+    });
     const searchField = createTag('div', { class: 'gnav-search-field' }, SEARCH_ICON);
-    const searchInput = createTag('input', { class: 'gnav-search-input', placeholder: label });
+    const searchInput = createTag('input', {
+      class: 'gnav-search-input',
+      placeholder: label,
+    });
     const searchResults = createTag('div', { class: 'gnav-search-results' });
 
     searchInput.addEventListener('input', (e) => {
@@ -250,7 +316,8 @@ class Gnav {
       }
     } else {
       this.curtain.classList.add(IS_OPEN);
-      el.querySelector('.gnav-search-input').focus();
+      el.querySelector('.gnav-search-input')
+        .focus();
     }
     this.state.openMenu = el;
   };

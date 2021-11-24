@@ -202,7 +202,7 @@ export async function loadBlock($block) {
     }
   } catch (err) {
     // eslint-disable-next-line no-console
-    console.log(`failed to load module for ${blockName}`, err);
+    console.error(`Failed to load module for ${blockName}`, err);
   }
 
   loadCSS(`/blocks/${blockName}/${blockName}.css`);
