@@ -2,152 +2,201 @@ body main .highlights {
   visibility: unset;
 }
 
-.highlights {
-  margin-bottom: 90px;
+@media screen and (min-width: 625px) {
+  .highlights {
+    margin-bottom: 50px;
+  }
+
+  .highlights div {
+    display: grid;
+    grid-template: repeat(3,1fr)/repeat(3,1fr);
+    grid-template-areas:
+      "large large small"
+      "large large small2"
+      "large large medium";
+    gap: 10px;
+    margin: 0 auto;
+    min-height: 14vw;
+    width: calc(100% + 24px);
+        
+  }
+
+  .highlights.highlights--large-medium-small-small- div {
+    grid-template: repeat(3,1fr)/repeat(3,1fr);
+    grid-template-areas:
+      "large large medium"
+      "large large small"
+      "large large small2";
+    
+  }
+
+  .highlights.highlights--small-small-medium-large- div {
+        grid-template-areas:
+      "small small2 large large large"
+      "medium medium large large large";
+    grid-template: repeat(3,1fr)/repeat(3,1fr);
+    grid-template-areas:
+      "small large large"
+      "small2 large large"
+      "medium large large";
+    
+  }
+
+  .section-wrapper:first-of-type div .highlights:first-of-type div {
+    max-width: 100%;
+    min-height: 18vw;
+  }
+
+  .highlights div div {
+    display: flex;
+    flex-flow: column;
+    position: relative;
+    color: #fff;
+    justify-content: flex-end;
+    width: 100%;
+  }
+
+  .highlights div .large {
+    grid-area: large;
+  }
+
+  .highlights div .medium {
+    grid-area: medium;
+  }
+
+  .highlights div .small {
+    grid-area: small;
+  }
+
+  .highlights div .small2 {
+    grid-area: small2;
+  }
+
+  .highlights div picture {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+  }
+
+  .highlights div picture:after {
+    top: 23px;
+    height: calc(100% - 23px);
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8));
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 100%;
+  }
+
+  .highlights div picture img {
+    object-fit: cover;
+    min-width: 100%;
+    min-height: 100%;
+    max-width: 100%;
+  }
+
+
+  .highlights div a {
+    text-decoration: none;
+  }
+
+  .highlights div .text {
+    display: flex;
+    flex-flow: column;
+    position: relative;
+    justify-content: flex-end;
+    margin: 20px 20px 20px 0;
+    z-index: 1;
+    color: #fff;
+  }
+
+  .highlights div .large .text {
+    padding-left: calc((100vw - 1170px)/4);
+    padding-bottom: 50px;  
+  }
+
+  .highlights div .text p {
+    color: #fff;
+    margin: 0 0 16px;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 30px;
+    padding-left: 20px;
+  }
+
+  .highlights div .text p:last-of-type {
+    text-transform: uppercase;
+    font-size: 12px;
+    line-height: 14px;
+    letter-spacing: .15em;
+    font-weight: 500;
+  }
+
+  .highlights div .text p:last-of-type:after {
+    content: "\279C";
+    font-family: icomoon;
+    margin-left: 18px;
+    font-size: 9px;
+    transition: margin-left .4s ease-in-out;
+  }
+
+  .highlights div .text h2 {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 34px;
+    color: white;
+    width: 80%;
+    margin: 0;
+    padding-left: 20px;
+  }
+
+  .highlights div .large .text h2 {
+    font-size: 20px;
+    line-height: 48px;
+  }
 }
 
-.highlights div {
-  display: grid;
-  grid-template: repeat(2,1fr)/repeat(5,1fr);
-  grid-template-areas:
-    "large large large small small2"
-    "large large large medium medium";
-  gap: 10px;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  min-height: 14vw;
- }
+@media screen and (min-width: 945px) {
+  .highlights {
+    margin-bottom: 90px;
+  }
 
+  .highlights div {
+    display: grid;
+    grid-template: repeat(2,1fr)/repeat(5,1fr);
+    grid-template-areas:
+      "large large large small small2"
+      "large large large medium medium";
+    gap: 10px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: 14vw;
+  }
 
+  .highlights.highlights--large-medium-small-small- div {
+    grid-template: repeat(2,1fr)/repeat(5,1fr);
+    grid-template-areas:
+      "large large large medium medium"
+      "large large large small small2";
+  }
 
-.highlights.highlights--large-medium-small-small- div {
-  grid-template: repeat(2,1fr)/repeat(5,1fr);
-  grid-template-areas:
-    "large large large medium medium"
-    "large large large small small2";
-}
+  .highlights.highlights--small-small-medium-large- div {
+    grid-template: repeat(2,1fr)/repeat(5,1fr);
+    grid-template-areas:
+      "small small2 large large large"
+      "medium medium large large large";
+  }
 
-.highlights.highlights--small-small-medium-large- div {
-  grid-template: repeat(2,1fr)/repeat(5,1fr);
-  grid-template-areas:
-    "small small2 large large large"
-    "medium medium large large large";
-}
+  .highlights div .text h2 {
+    font-size: 28px;
+  }
 
-.section-wrapper:first-of-type div .highlights:first-of-type div {
-  max-width: 100%;
-  min-height: 18vw;
-}
-
-.highlights div div {
-  display: flex;
-  flex-flow: column;
-  position: relative;
-  color: #fff;
-  justify-content: flex-end;
-  width: 100%;
-}
-
-.highlights div .large {
-  grid-area: large;
-}
-
-.highlights div .medium {
-  grid-area: medium;
-}
-
-.highlights div .small {
-  grid-area: small;
-}
-
-.highlights div .small2 {
-  grid-area: small2;
-}
-
-.highlights div picture {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  z-index: -1;
-}
-
-.highlights div picture:after {
-  top: 23px;
-  height: calc(100% - 23px);
-  background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8));
-  content: "";
-  position: absolute;
-  left: 0;
-  width: 100%;
-}
-
-.highlights div picture img {
-  object-fit: cover;
-  min-width: 100%;
-  min-height: 100%;
-  max-width: 100%;
-}
-
-
-.highlights div a {
-  text-decoration: none;
-}
-
-.highlights div .text {
-  display: flex;
-  flex-flow: column;
-  position: relative;
-  justify-content: flex-end;
-  margin: 20px 20px 20px 0;
-  z-index: 1;
-  color: #fff;
-}
-
-.highlights div .large .text {
-  padding-left: calc((100vw - 1170px)/4);
-  padding-bottom: 50px;  
-}
-
-.highlights div .text p {
-  color: #fff;
-  margin: 0 0 16px;
-  font-size: 18px;
-  font-weight: 300;
-  line-height: 30px;
-  padding-left: 20px;
-}
-
-.highlights div .text p:last-of-type {
-  text-transform: uppercase;
-  font-size: 12px;
-  line-height: 14px;
-  letter-spacing: .15em;
-  font-weight: 500;
-}
-
-.highlights div .text p:last-of-type:after {
-  content: "\279C";
-  font-family: icomoon;
-  margin-left: 18px;
-  font-size: 9px;
-  transition: margin-left .4s ease-in-out;
-}
-
-.highlights div .text h2 {
-  font-size: 28px;
-  font-weight: 700;
-  line-height: 34px;
-  color: white;
-  width: 80%;
-  margin: 0;
-  padding-left: 20px;
-}
-
-.highlights div .large .text h2 {
-  font-size: 44px;
-  line-height: 48px;
+  .highlights div .large .text h2 {
+    font-size: 44px;
+  }
 }
