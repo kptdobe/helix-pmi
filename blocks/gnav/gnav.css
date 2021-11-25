@@ -9,6 +9,7 @@ header .gnav {
   height: 64px;
   border-bottom: 1px solid #EAEAEA;
   display: flex;
+  z-index: 10;
 }
 
 .gnav {
