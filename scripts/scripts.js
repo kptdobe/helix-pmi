@@ -557,12 +557,8 @@ async function loadEager(doc) {
  * @param main
  */
 function createSocialBlock(main) {
-  const title = document.querySelector('main div:first-of-type h1:first-of-type');
-  const picture = document.querySelector('main div:first-of-type p picture');
-  // first element must be a h1 and there should be a picture - only run on articlepages
-  if (title && picture) {
+  if (isArticle() || isBlogEntry()) {
     const contentWrapper = main.querySelector('div div');
-
     const tag = document.createElement('div');
     tag.classList.add('social-wrapper');
     tag.classList.add('block');
