@@ -28,19 +28,23 @@ class Footer {
       infoRow.classList.add('has-social');
     }
     */
-
+    
     const privacy = this.decoratePrivacy();
+    
     if (privacy) {
-      infoColumnRight.append(privacy);
-      infoRow.classList.add('has-privacy');
+      //infoColumnRight.append(privacy);
+      //infoRow.classList.add('has-privacy');
+      infoRow.append(privacy);
     }
-
+    
+    /*
     if (infoColumnLeft.hasChildNodes()) {
       infoRow.append(infoColumnLeft);
     }
     if (infoColumnRight.hasChildNodes()) {
       infoRow.append(infoColumnRight);
     }
+    */
     if (infoRow.hasChildNodes()) {
       wrapper.append(infoRow);
     }
@@ -124,9 +128,7 @@ class Footer {
     // build social icon links
     const socialLinks = createTag('ul', { class: 'footer-social-icons' });
     const linksContainer = heading.nextElementSibling;
-    //console.log(linksContainer);
     linksContainer.querySelectorAll('a').forEach((a) => {
-      console.log(a);
       const domain = a.host.replace(/www./, '').replace(/.com/, '');
       const supported = ['facebook', 'twitter', 'instagram', 'linkedin'];
       if (supported.includes(domain)) {
@@ -154,13 +156,13 @@ class Footer {
     const links = copyrightEl.parentElement.querySelectorAll('a');
     if (!copyrightEl || !links) return null;
     // build privacy wrapper
-    const privacyWrapper = createTag('div', { class: 'footer-privacy' });
+    //const privacyWrapper = createTag('div', { class: 'footer-privacy' });
     // build privacy copyright text
-    const copyright = createTag('p', { class: 'footer-privacy-copyright' });
-    copyright.textContent = copyrightEl.textContent;
-    privacyWrapper.append(copyright);
+    //const copyright = createTag('p', { class: 'footer-privacy-copyright' });
+    //copyright.textContent = copyrightEl.textContent;
+    //privacyWrapper.append(copyright);
     // build privacy links
-    const infoLinks = createTag('ul', { class: 'footer-privacy-links' });
+    const infoLinks = createTag('ul', { class: 'footer-info' });
     // populate privacy links
     links.forEach((link) => {
       const li = createTag('li', { class: 'footer-privacy-link' });
@@ -170,8 +172,9 @@ class Footer {
       li.append(link);
       infoLinks.append(li);
     });
-    privacyWrapper.append(infoLinks);
-    return privacyWrapper;
+    //privacyWrapper.append(infoLinks);
+    //return privacyWrapper;
+    return infoLinks;
   };
 
   toggleMenu = (e) => {

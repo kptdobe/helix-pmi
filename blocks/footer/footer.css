@@ -23,6 +23,7 @@ footer a:focus {
   padding: 0 23px;
   max-width: 1440px;
   width: 100%;
+  background-color: #f6f6f6; 
 }
 /* NAV GRID */
 .footer-nav-grid {
@@ -317,3 +318,4 @@ footer a:focus {
   content: '/';
   margin-left: 6px;
 }
+
