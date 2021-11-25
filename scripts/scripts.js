@@ -431,6 +431,15 @@ function buildHeroBlock(main) {
 
 function buildBlogBlock() {
   if (isBlogEntry()) {
+    // Hero
+    const title = document.querySelector('main div:first-of-type h1:first-of-type');
+    const date = document.querySelector('main div:first-of-type p');
+    const heroImage = document.querySelector('main div:first-of-type p picture');
+
+    console.log('title', title);
+    console.log('date', date);
+    console.log('heroImage', heroImage);
+    // Blog Link
     const blog = document.getElementById('blog');
     const contentWrapper = document.querySelector('main div:first-of-type');
     const pTags = contentWrapper.querySelectorAll('p');
