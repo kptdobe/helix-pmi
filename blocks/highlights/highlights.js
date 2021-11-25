@@ -10,15 +10,13 @@
  * governing permissions and limitations under the License.
  */
 
-import { makeLinkRelative } from '../../scripts/scripts.js';
+import { makeLinkRelative, getPlaceholder } from '../../scripts/scripts.js';
 
 const LAYOUTS = {
   default: ['large', 'small', 'small2', 'medium'],
   'highlights--large-medium-small-small-': ['large', 'medium', 'small', 'small2'],
   'highlights--small-small-medium-large-': ['small', 'small2', 'medium', 'large'],
 };
-
-const MORE = 'SCOPRI DI PIÙ';
 
 export default function decorate(block) {
   if (block.getAttribute('data-decorated')) return;
@@ -61,7 +59,7 @@ export default function decorate(block) {
 
       const more = document.createElement('p');
       if (!size.startsWith('small')) {
-        more.innerHTML = MORE;
+        more.innerHTML = getPlaceholder('more');
       }
       text.append(more);
 

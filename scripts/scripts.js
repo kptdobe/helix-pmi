@@ -119,6 +119,23 @@ export function makeLinkRelative(href) {
   return href;
 }
 
+export function getLocale() {
+  return window.location.href.includes('/en/') ? 'en' : 'it';
+}
+
+export function getPlaceholder(key) {
+  const PLACEHOLDERS = {
+    en: {
+      more: 'Lear more',
+    },
+    it: {
+      more: 'Scopri di più',
+    },
+  };
+
+  return PLACEHOLDERS[getLocale()][key];
+}
+
 /**
  * Decorates a block.
  * @param {Element} block The block element
