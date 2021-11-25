@@ -390,11 +390,34 @@ export function isBlogEntry() {
   return !!document.querySelector('[name="publication-date"]');
 }
 
+function buildHeroTeaserElement(title, subTitle, image) {
+  const hero = document.createElement('div');
+  hero.classList.add('hero');
+
+  const heroText = document.createElement('div');
+  heroText.classList.add('hero-text');
+
+  // hero -> 2 columns (title, subline | image)
+  hero.appendChild(heroText);
+  heroText.appendChild(title);
+  heroText.appendChild(subTitle);
+
+  const heroImgWrapper = document.createElement('div');
+  heroImgWrapper.classList.add('hero-image');
+  const parent = image.parentNode;
+  heroImgWrapper.append(image);
+  hero.append(heroImgWrapper);
+  parent.remove();
+
+  const contentWrapper = document.querySelector('main div:first-of-type');
+  // insert new hero block as first element in '<main><section-wrapper><div>'
+  contentWrapper.insertBefore(hero, contentWrapper.firstChild);
+}
+
 /**
  * builds hero blocks from default content on article pages.
- * @param {Element} main The container element
  */
-function buildHeroBlock(main) {
+function buildHeroBlock() {
   // first element must be a h1 and there should be a picture
   if (isArticle()) {
     const title = document.querySelector('main div:first-of-type h1:first-of-type');
@@ -402,37 +425,24 @@ function buildHeroBlock(main) {
 
     if (title && picture) {
       // grab h1, p and first img
-      const contentWrapper = main.querySelector('div');
       const subTitle = title.nextElementSibling;
-
-      const hero = document.createElement('div');
-      hero.classList.add('hero');
-
-      const heroText = document.createElement('div');
-      heroText.classList.add('hero-text');
-
-      // hero -> 2 columns (title, subline | image)
-      hero.appendChild(heroText);
-      heroText.appendChild(title);
-      heroText.appendChild(subTitle);
-
-      const heroImgWrapper = document.createElement('div');
-      heroImgWrapper.classList.add('hero-image');
-      const parent = picture.parentNode;
-      heroImgWrapper.append(picture);
-      hero.append(heroImgWrapper);
-      parent.remove();
-
-      // insert new hero block as first element in '<main><section-wrapper><div>'
-      contentWrapper.insertBefore(hero, contentWrapper.firstChild);
+      buildHeroTeaserElement(title, subTitle, picture);
     }
   }
 }
 
 function buildBlogBlock() {
   if (isBlogEntry()) {
-    const blog = document.getElementById('blog');
+    // Hero
+    const title = document.querySelector('main div:first-of-type h1:first-of-type');
+    const date = document.querySelector('main div:first-of-type p');
+    const heroImage = document.querySelector('main div:first-of-type p picture');
     const contentWrapper = document.querySelector('main div:first-of-type');
+
+    buildHeroTeaserElement(title, date, heroImage);
+
+    // Blog Link
+    const blog = document.getElementById('blog');
     const pTags = contentWrapper.querySelectorAll('p');
     const blogText = pTags[pTags.length - 1];
 
@@ -461,7 +471,7 @@ function buildBlogBlock() {
 function buildAutoBlocks(main) {
   removeStylingFromImages(main);
   try {
-    buildHeroBlock(main);
+    buildHeroBlock();
     buildImageBlocks(main);
     buildBlogBlock();
   } catch (error) {
@@ -547,12 +557,8 @@ async function loadEager(doc) {
  * @param main
  */
 function createSocialBlock(main) {
-  const title = document.querySelector('main div:first-of-type h1:first-of-type');
-  const picture = document.querySelector('main div:first-of-type p picture');
-  // first element must be a h1 and there should be a picture - only run on articlepages
-  if (title && picture) {
+  if (isArticle() || isBlogEntry()) {
     const contentWrapper = main.querySelector('div div');
-
     const tag = document.createElement('div');
     tag.classList.add('social-wrapper');
     tag.classList.add('block');
