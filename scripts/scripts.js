@@ -382,12 +382,16 @@ function buildImageBlocks(main) {
   });
 }
 
-export function isArticle() {
+export function isArticlePage() {
   return !!document.querySelector('[name="category"]');
 }
 
-export function isBlogEntry() {
+export function isBlogEntryPage() {
   return !!document.querySelector('[name="publication-date"]');
+}
+
+export function isCategoryPage() {
+  return !!document.querySelector('.article-intro');
 }
 
 function buildHeroTeaserElement(title, subTitle, image) {
@@ -419,7 +423,7 @@ function buildHeroTeaserElement(title, subTitle, image) {
  */
 function buildHeroBlock() {
   // first element must be a h1 and there should be a picture
-  if (isArticle()) {
+  if (isArticlePage() || isCategoryPage()) {
     const title = document.querySelector('main div:first-of-type h1:first-of-type');
     const picture = document.querySelector('main div:first-of-type p picture');
 
@@ -432,7 +436,7 @@ function buildHeroBlock() {
 }
 
 function buildBlogBlock() {
-  if (isBlogEntry()) {
+  if (isBlogEntryPage()) {
     // Hero
     const title = document.querySelector('main div:first-of-type h1:first-of-type');
     const date = document.querySelector('main div:first-of-type p');
@@ -557,7 +561,7 @@ async function loadEager(doc) {
  * @param main
  */
 function createSocialBlock(main) {
-  if (isArticle() || isBlogEntry()) {
+  if (isArticlePage() || isBlogEntryPage()) {
     const contentWrapper = main.querySelector('div div');
     const tag = document.createElement('div');
     tag.classList.add('social-wrapper');
