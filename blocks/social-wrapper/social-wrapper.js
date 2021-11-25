@@ -6,26 +6,36 @@ class SocialWrapper {
     this.desktop = window.matchMedia('(min-width: 900px)');
   }
 
+  getSocialIconElement(iconName) {
+    return createTag('img', {
+      class: 'footer-social-img',
+      loading: 'lazy',
+      src: `/blocks/footer/${iconName}-square.svg`,
+      alt: `${iconName} logo`,
+    });
+  };
+
   init = async () => {
+
     //  Facebook
     const facebookButton = createTag('button', { class: 'social-wrapper_button' });
-    facebookButton.innerText = 'F';
     facebookButton.setAttribute('data-service', 'facebook');
     facebookButton.setAttribute('data-url', 'https://www.pmi.com/markets/italy/it/chi-siamo/nostri-prodotti?utm_source=share+button+facebook&utm_medium=social&utm_campaign=share');
+    facebookButton.appendChild(this.getSocialIconElement('facebook'));
     this.el.appendChild(facebookButton);
 
     //  Twitter
     const twitterButton = createTag('button', { class: 'social-wrapper_button' });
-    twitterButton.innerText = '🐤';
     twitterButton.setAttribute('data-service', 'twitter');
     twitterButton.setAttribute('data-url', 'https://www.pmi.com/markets/italy/it/chi-siamo/nostri-prodotti?utm_source=share+button+twitter&utm_medium=social&utm_campaign=share');
+    twitterButton.appendChild(this.getSocialIconElement('twitter'));
     this.el.appendChild(twitterButton);
 
     //  LinkedIn
     const linkedInButton = createTag('button', { class: 'social-wrapper_button' });
-    linkedInButton.innerText = 'LI';
     linkedInButton.setAttribute('data-service', 'linkedin');
     linkedInButton.setAttribute('data-url', 'https://www.pmi.com/markets/italy/it/chi-siamo/nostri-prodotti?utm_source=share+button+linkedin&utm_medium=social&utm_campaign=share');
+    linkedInButton.appendChild(this.getSocialIconElement('linkedin'));
     this.el.appendChild(linkedInButton);
 
     //  E-Mail
