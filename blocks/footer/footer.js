@@ -57,29 +57,37 @@ class Footer {
     //return navGrid;
   };
 
+  decorateFooterCommon = (heading) => {
+    const navItem = createTag('div', { class: 'footer-nav-item' });
+    const titleId = heading.textContent.trim().toLowerCase().replace(/ /g, '-');
+    let expanded = false;
+    if (this.desktop.matches) { expanded = true; }
+    // populate grid column item
+    const title = createTag('a', {
+      class: 'footer-nav-item-title',
+      role: 'button',
+      'aria-expanded': expanded,
+      'aria-controls': `${titleId}-menu`,
+    });
+    title.textContent = heading.textContent;
+    navItem.append(title);
+    return navItem
+  };
+
+
   decorateInit = (navGrid, columns) => {
     var count = 0;
+
     columns.forEach((column) => {
-      if (count < 3) {
-        // build grid column
-        const navColumn = createTag('div', { class: 'footer-nav-column' });
-        const headings = column.querySelectorAll('h2');
-        headings.forEach((heading) => {
-          // build grid column item
-          console.log(heading);
-          const navItem = createTag('div', { class: 'footer-nav-item' });
-          const titleId = heading.textContent.trim().toLowerCase().replace(/ /g, '-');
-          let expanded = false;
-          if (this.desktop.matches) { expanded = true; }
-          // populate grid column item
-          const title = createTag('a', {
-            class: 'footer-nav-item-title',
-            role: 'button',
-            'aria-expanded': expanded,
-            'aria-controls': `${titleId}-menu`,
-          });
-          title.textContent = heading.textContent;
-          navItem.append(title);
+      const navColumn = createTag('div', { class: 'footer-nav-column' });
+      const headings = column.querySelectorAll('h2');
+      headings.forEach((heading) => {
+        const titleId = heading.textContent.trim().toLowerCase().replace(/ /g, '-');
+
+        const navItem = this.decorateFooterCommon(heading);
+
+        if (count < 3) {
+          // build grid column
           const linksContainer = heading.nextElementSibling;
           linksContainer.classList = 'footer-nav-item-links';
           linksContainer.id = `${titleId}-menu`;
@@ -92,25 +100,17 @@ class Footer {
           });
           navItem.append(linksContainer);
           navColumn.append(navItem);
-        });
-        navGrid.append(navColumn);
-      }
-      else {
-        
-        const navItem = createTag('div', { class: 'footer-nav-item' });
-        // const titleId = heading.textContent.trim().toLowerCase().replace(/ /g, '-');
-        const title = createTag('a', {
-          class: 'footer-nav-item-title',
-          role: 'button',
-          // 'aria-expanded': expanded
-          // 'aria-controls': `${titleId}-menu`,
-        });
-        title.textContent = "Seguici";
-        navItem.append(title);
-        navGrid.append(navItem);
-        const social = this.decorateSocial();
-        navGrid.append(social);
-      }
+        }
+        else {
+          const social = this.decorateSocial();
+          navItem.append(social);
+          navColumn.append(navItem);
+
+        }
+
+      });
+      //navColumn.append(navItem);
+      navGrid.append(navColumn);
       count += 1;
     });
 
