@@ -21,11 +21,13 @@ class Footer {
     const infoColumnLeft = createTag('div', { class: 'footer-info-column' });
     const infoColumnRight = createTag('div', { class: 'footer-info-column' });
 
+    /*
     const social = this.decorateSocial();
     if (social) {
       infoColumnLeft.append(social);
       infoRow.classList.add('has-social');
     }
+    */
 
     const privacy = this.decoratePrivacy();
     if (privacy) {
@@ -146,40 +148,6 @@ class Footer {
     });
     return socialWrapper;
   };
-
-  decorateSocial = () => {
-    const socialEl = this.body.querySelector('.social > div');
-    console.log(socialEl);
-    if (!socialEl) return null;
-    // build social icon wrapper
-    const socialWrapper = createTag('div', { class: 'footer-social' });
-    // build social icon links
-    const socialLinks = createTag('ul', { class: 'footer-social-icons' });
-    socialEl.querySelectorAll('a').forEach((a) => {
-      console.log(a);
-      const domain = a.host.replace(/www./, '').replace(/.com/, '');
-      const supported = ['facebook', 'twitter', 'instagram', 'linkedin'];
-      if (supported.includes(domain)) {
-        // populate social icon links
-        const li = createTag('li', { class: 'footer-social-icon' });
-        const socialIcon = createTag('img', {
-          class: 'footer-social-img',
-          loading: 'lazy',
-          src: `/blocks/footer/${domain}-square.svg`,
-          alt: `${domain} logo`,
-        });
-        a.setAttribute('aria-label', domain);
-        a.textContent = '';
-        a.append(socialIcon);
-        li.append(a);
-        socialLinks.append(li);
-      } else { a.remove(); }
-      socialWrapper.append(socialLinks);
-    });
-    return socialWrapper;
-  };
-
-
 
   decoratePrivacy = () => {
     const copyrightEl = this.body.querySelector('div em');
