@@ -460,6 +460,7 @@ button.gnav-toggle:after {
 }
 
 .language-toggle {
+  text-transform: uppercase;
   cursor: pointer;
   -webkit-user-select: none; /* Safari */
   -moz-user-select: none; /* Firefox */
