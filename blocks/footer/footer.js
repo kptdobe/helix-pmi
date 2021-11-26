@@ -21,30 +21,13 @@ class Footer {
     const infoColumnLeft = createTag('div', { class: 'footer-info-column' });
     const infoColumnRight = createTag('div', { class: 'footer-info-column' });
 
-    /*
-    const social = this.decorateSocial();
-    if (social) {
-      infoColumnLeft.append(social);
-      infoRow.classList.add('has-social');
-    }
-    */
-    
+
     const privacy = this.decoratePrivacy();
-    
+
     if (privacy) {
-      //infoColumnRight.append(privacy);
-      //infoRow.classList.add('has-privacy');
       infoRow.append(privacy);
     }
-    
-    /*
-    if (infoColumnLeft.hasChildNodes()) {
-      infoRow.append(infoColumnLeft);
-    }
-    if (infoColumnRight.hasChildNodes()) {
-      infoRow.append(infoColumnRight);
-    }
-    */
+
     if (infoRow.hasChildNodes()) {
       wrapper.append(infoRow);
     }
@@ -155,13 +138,6 @@ class Footer {
     const copyrightEl = this.body.querySelector('div em');
     const links = copyrightEl.parentElement.querySelectorAll('a');
     if (!copyrightEl || !links) return null;
-    // build privacy wrapper
-    //const privacyWrapper = createTag('div', { class: 'footer-privacy' });
-    // build privacy copyright text
-    //const copyright = createTag('p', { class: 'footer-privacy-copyright' });
-    //copyright.textContent = copyrightEl.textContent;
-    //privacyWrapper.append(copyright);
-    // build privacy links
     const infoLinks = createTag('ul', { class: 'footer-info' });
     // populate privacy links
     links.forEach((link) => {
@@ -172,8 +148,6 @@ class Footer {
       li.append(link);
       infoLinks.append(li);
     });
-    //privacyWrapper.append(infoLinks);
-    //return privacyWrapper;
     return infoLinks;
   };
 
