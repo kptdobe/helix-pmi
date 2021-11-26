@@ -91,7 +91,7 @@ h3 {
 
 ul, ol, li {
     margin: 0 auto;
-    max-width: var(--content-width);
+    /* max-width: var(--content-width); */
 }
 
 img {
