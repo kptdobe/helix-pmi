@@ -173,7 +173,7 @@ class Gnav {
     navLink.addEventListener('blur', () => {
       window.removeEventListener('keydown', this.toggleOnSpace);
     });
-    navLink.addEventListener('click', (e) => {
+    navLink.addEventListener('mouseover', (e) => {
       e.preventDefault();
       e.stopPropagation();
       this.toggleMenu(navItem);
