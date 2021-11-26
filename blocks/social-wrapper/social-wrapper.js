@@ -6,17 +6,7 @@ class SocialWrapper {
     this.desktop = window.matchMedia('(min-width: 900px)');
   }
 
-  getSocialIconElement(iconName) {
-    return createTag('img', {
-      class: 'footer-social-img',
-      loading: 'lazy',
-      src: `/blocks/footer/${iconName}-square.svg`,
-      alt: `${iconName} logo`,
-    });
-  };
-
   init = async () => {
-
     //  Facebook
     const facebookButton = createTag('button', { class: 'social-wrapper_button' });
     facebookButton.setAttribute('data-service', 'facebook');
@@ -44,6 +34,14 @@ class SocialWrapper {
     mailButton.innerText = '✉';
     this.el.appendChild(mailButton);
   };
+
+  // eslint-disable-next-line class-methods-use-this
+  getSocialIconElement = (iconName) => createTag('img', {
+    class: 'footer-social-img',
+    loading: 'lazy',
+    src: `/blocks/footer/${iconName}-square.svg`,
+    alt: `${iconName} logo`,
+  });
 }
 
 export default async function init(block) {
