@@ -173,10 +173,13 @@ class Gnav {
     navLink.addEventListener('blur', () => {
       window.removeEventListener('keydown', this.toggleOnSpace);
     });
-    navLink.addEventListener('mouseover', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      this.toggleMenu(navItem);
+
+    ['mouseover', 'touchstart', 'touchend'].forEach((eventType) => {
+      navLink.addEventListener(eventType, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        this.toggleMenu(navItem);
+      });
     });
   }
 
