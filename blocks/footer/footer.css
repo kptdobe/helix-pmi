@@ -80,10 +80,12 @@ footer a:focus {
 
 .footer-nav-item-title {
   margin: 6px 0;
-  color: var(--color-gray-700);
+  color: var(--color-heading);
   padding: 8px 0;
-  font-size: var(--heading-font-size-xxs);
-  font-weight: var(--heading-font-weight);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 22px;
+  text-decoration: none;
   display: flex;
   align-items: center;
   justify-content: space-between;
