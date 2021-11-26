@@ -468,3 +468,9 @@ button.gnav-toggle:after {
   -ms-user-select: none; /* IE10+/Edge */
   user-select: none; /* Standard */
 }
+
+@media screen and (max-width: 1199px) {
+  .language-toggle {
+    display: none;
+  }
+}
