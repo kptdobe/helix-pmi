@@ -138,15 +138,18 @@ footer a:focus {
 .footer-nav-item-link a {
   display: block;
   text-decoration: none;
-  padding: 3px 0;
   font-weight: 300;
+  font-size: 14px;
+  line-height: 24px;
   color: #6e6e6e;
-  transition: all .2s ease-in-out;
   cursor: pointer;
 }
 
 .footer-nav-item-link a:hover {
-  font-weight: bold;
+  transition: all .2s ease-in-out;
+  text-decoration: none;
+  font-weight: 700;
+  outline: none;
   color: var(--color-primary);
 }
 
