@@ -18,10 +18,6 @@ class Footer {
     }
 
     const infoRow = createTag('div', { class: 'footer-info' });
-    const infoColumnLeft = createTag('div', { class: 'footer-info-column' });
-    const infoColumnRight = createTag('div', { class: 'footer-info-column' });
-
-
     const privacy = this.decoratePrivacy();
 
     if (privacy) {
@@ -43,14 +39,18 @@ class Footer {
     const navGrid = createTag('div', { class: 'footer-nav-grid' });
     const columns = gridBlock.querySelectorAll('div');
     return this.decorateInit(navGrid, columns);
-    //return navGrid;
   };
 
   decorateFooterCommon = (heading) => {
     const navItem = createTag('div', { class: 'footer-nav-item' });
-    const titleId = heading.textContent.trim().toLowerCase().replace(/ /g, '-');
+    const titleId = heading.textContent.trim()
+      .toLowerCase()
+      .replace(/ /g, '-');
     let expanded = false;
-    if (this.desktop.matches) { expanded = true; }
+    if (this.desktop.matches) {
+      expanded = true;
+    }
+
     // populate grid column item
     const title = createTag('a', {
       class: 'footer-nav-item-title',
@@ -60,18 +60,19 @@ class Footer {
     });
     title.textContent = heading.textContent;
     navItem.append(title);
-    return navItem
+    return navItem;
   };
 
-
   decorateInit = (navGrid, columns) => {
-    var count = 0;
+    let count = 0;
 
     columns.forEach((column) => {
       const navColumn = createTag('div', { class: 'footer-nav-column' });
       const headings = column.querySelectorAll('h2');
       headings.forEach((heading) => {
-        const titleId = heading.textContent.trim().toLowerCase().replace(/ /g, '-');
+        const titleId = heading.textContent.trim()
+          .toLowerCase()
+          .replace(/ /g, '-');
 
         const navItem = this.decorateFooterCommon(heading);
 
@@ -81,7 +82,8 @@ class Footer {
           linksContainer.classList = 'footer-nav-item-links';
           linksContainer.id = `${titleId}-menu`;
           if (!this.desktop.matches) {
-            title.addEventListener('click', this.toggleMenu);
+            // todo where does title come from?
+            // title.addEventListener('click', this.toggleMenu);
           }
           const links = linksContainer.querySelectorAll('li');
           links.forEach((link) => {
@@ -89,12 +91,10 @@ class Footer {
           });
           navItem.append(linksContainer);
           navColumn.append(navItem);
-        }
-        else {
+        } else {
           const social = this.decorateSocialIcons(heading);
           navItem.append(social);
           navColumn.append(navItem);
-
         }
       });
       navGrid.append(navColumn);
@@ -104,33 +104,37 @@ class Footer {
     return navGrid;
   };
 
-
+  // eslint-disable-next-line class-methods-use-this
   decorateSocialIcons = (heading) => {
     // build social icon wrapper
     const socialWrapper = createTag('div', { class: 'footer-social' });
     // build social icon links
     const socialLinks = createTag('ul', { class: 'footer-social-icons' });
     const linksContainer = heading.nextElementSibling;
-    linksContainer.querySelectorAll('a').forEach((a) => {
-      const domain = a.host.replace(/www./, '').replace(/.com/, '');
-      const supported = ['facebook', 'twitter', 'instagram', 'linkedin'];
-      if (supported.includes(domain)) {
-        // populate social icon links
-        const li = createTag('li', { class: 'footer-social-icon' });
-        const socialIcon = createTag('img', {
-          class: 'footer-social-img',
-          loading: 'lazy',
-          src: `/blocks/footer/${domain}-square.svg`,
-          alt: `${domain} logo`,
-        });
-        a.setAttribute('aria-label', domain);
-        a.textContent = '';
-        a.append(socialIcon);
-        li.append(a);
-        socialLinks.append(li);
-      } else { a.remove(); }
-      socialWrapper.append(socialLinks);
-    });
+    linksContainer.querySelectorAll('a')
+      .forEach((a) => {
+        const domain = a.host.replace(/www./, '')
+          .replace(/.com/, '');
+        const supported = ['facebook', 'twitter', 'instagram', 'linkedin'];
+        if (supported.includes(domain)) {
+          // populate social icon links
+          const li = createTag('li', { class: 'footer-social-icon' });
+          const socialIcon = createTag('img', {
+            class: 'footer-social-img',
+            loading: 'lazy',
+            src: `/blocks/footer/${domain}-square.svg`,
+            alt: `${domain} logo`,
+          });
+          a.setAttribute('aria-label', domain);
+          a.textContent = '';
+          a.append(socialIcon);
+          li.append(a);
+          socialLinks.append(li);
+        } else {
+          a.remove();
+        }
+        socialWrapper.append(socialLinks);
+      });
     return socialWrapper;
   };
 
@@ -172,7 +176,9 @@ class Footer {
   openMenu = (el) => {
     const type = el.classList[0];
     const expandedMenu = document.querySelector(`.${type}[aria-expanded=true]`);
-    if (expandedMenu) { this.closeMenu(expandedMenu); }
+    if (expandedMenu) {
+      this.closeMenu(expandedMenu);
+    }
     if (el.id === 'region-button') {
       window.addEventListener('keydown', this.closeOnEscape);
       window.addEventListener('click', this.closeOnDocClick);
@@ -197,23 +203,24 @@ class Footer {
 
   onMediaChange = (e) => {
     if (e.matches) {
-      document.querySelectorAll('.footer-nav-item-title').forEach((button) => {
-        button.setAttribute('aria-expanded', true);
-        button.removeEventListener('click', this.toggleMenu);
-      });
+      document.querySelectorAll('.footer-nav-item-title')
+        .forEach((button) => {
+          button.setAttribute('aria-expanded', true);
+          button.removeEventListener('click', this.toggleMenu);
+        });
     } else {
-      document.querySelectorAll('.footer-nav-item-title').forEach((button) => {
-        button.setAttribute('aria-expanded', false);
-        button.addEventListener('click', this.toggleMenu);
-      });
+      document.querySelectorAll('.footer-nav-item-title')
+        .forEach((button) => {
+          button.setAttribute('aria-expanded', false);
+          button.addEventListener('click', this.toggleMenu);
+        });
     }
   };
 }
 
 async function fetchFooter(url) {
   const resp = await fetch(`${url}.plain.html`);
-  const html = await resp.text();
-  return html;
+  return resp.text();
 }
 
 export default async function init(block) {
@@ -225,7 +232,7 @@ export default async function init(block) {
         const parser = new DOMParser();
         const footerDoc = parser.parseFromString(html, 'text/html');
         const footer = new Footer(footerDoc.body, block);
-        footer.init();
+        await footer.init();
       } catch (error) {
         // eslint-disable-next-line no-console
         console.error('Could not create footer.', error.message);
