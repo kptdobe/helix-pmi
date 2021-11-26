@@ -120,7 +120,15 @@ footer {
 
 /* FOOTER INFO ROW */
 .footer-info {
-  margin-top: 1rem;
+  width: 100%;
+  margin-top: 70px;
+  padding-top: 40px;
+  border-top: 1px solid #ccc;
+}
+
+.footer-info ul {
+  width: 50%;
+  margin: 0 auto;
 }
 
 .footer-info.has-region > .footer-info-column:first-of-type,

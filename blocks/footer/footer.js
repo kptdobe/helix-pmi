@@ -144,7 +144,7 @@ class Footer {
       return null;
     }
 
-    const infoLinks = createTag('ul', { class: 'footer-info' });
+    const infoLinks = createTag('ul', {});
     // populate privacy links
     links.forEach((link) => {
       const li = createTag('li', { class: 'footer-privacy-link' });
