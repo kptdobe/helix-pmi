@@ -1,33 +1,30 @@
 footer {
-  font-size: var(--body-font-size-xxs);
-  padding: 1rem 0;
+  margin-top: 2rem;
+  padding-top: 80px;
+  padding-bottom: 50px;
   display: flex;
   flex-direction: column;
-  background: var(--color-gray-100);
-}
-
-footer a:any-link {
-  color: var(--color-gray-700);
-  text-decoration: none;
-}
-
-footer a:hover,
-footer a:focus {
-  color: var(--color-gray-500);
+  background-color: #f6f6f6;
 }
 
 .footer-wrapper {
-  flex-shrink: 0; 
+  flex-shrink: 0;
   box-sizing: border-box;
   margin: auto;
   padding: 0 23px;
-  max-width: 1440px;
   width: 100%;
 }
+
 /* NAV GRID */
 .footer-nav-grid {
+  width: 65%;
+  margin: auto;
   display: flex;
   flex-direction: column;
+}
+
+.footer-nav-column:nth-child(4) {
+  margin-left: 206px;
 }
 
 @media (min-width: 900px) {
@@ -46,12 +43,14 @@ footer a:focus {
   }
 }
 
-.footer-nav-item {
-  border-top: 1px solid var(--color-gray-500);
+/* underline cookie preferences + notices */
+#legal-menu .footer-nav-item-link:nth-child(3) {
+  margin-top: 30px;
+  text-decoration: underline;
 }
 
-.footer-nav-grid > .footer-nav-column:last-of-type .footer-nav-item {
-  border-bottom: 1px solid var(--color-gray-500);
+#legal-menu .footer-nav-item-link:nth-child(4) {
+  text-decoration: underline;
 }
 
 @media (min-width: 900px) {
@@ -63,14 +62,15 @@ footer a:focus {
 
 .footer-nav-item-title {
   margin: 6px 0;
-  color: var(--color-gray-700);
+  color: var(--color-heading);
   padding: 8px 0;
-  font-size: var(--heading-font-size-xxs);
-  font-weight: var(--heading-font-weight);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 22px;
+  text-decoration: none;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  cursor: pointer;
 }
 
 .footer-nav-item-title[aria-expanded=false]::after {
@@ -85,19 +85,6 @@ footer a:focus {
   .footer-nav-item-title::after {
     visibility: hidden;
     display: none;
-  }
-}
-
-.footer-nav-item-title:hover,
-.footer-nav-item-title:focus {
-  color: var(--color-gray-500);
-}
-
-@media (min-width: 900px) {
-  .footer-nav-item-title:hover,
-  .footer-nav-item-title:focus {
-    color: var(--color-gray-700);
-    cursor: auto;
   }
 }
 
@@ -119,12 +106,31 @@ footer a:focus {
 .footer-nav-item-link a {
   display: block;
   text-decoration: none;
-  padding: 3px 0;
+  font-size: 14px;
+  line-height: 24px;
+  color: #6e6e6e;
+  cursor: pointer;
+}
+
+.footer-nav-item-link a:hover {
+  transition: all .2s ease-in-out;
+  text-decoration: none;
+  font-weight: 700;
+  outline: none;
+  color: var(--color-primary);
 }
 
 /* FOOTER INFO ROW */
 .footer-info {
-  margin-top: 1rem;
+  width: 100%;
+  margin-top: 70px;
+  padding-top: 40px;
+  border-top: 1px solid #ccc;
+}
+
+.footer-info ul {
+  display: flex;
+  justify-content: center;
 }
 
 .footer-info.has-region > .footer-info-column:first-of-type,
@@ -153,91 +159,6 @@ footer a:focus {
   }
 }
 
-/* REGION SELECTOR */
-.footer-region {
-  position: relative;
-  margin-right: 1rem;
-  margin-bottom: 1rem;
-} 
-
-@media (min-width: 700px) {
-  .footer-region {
-    margin-top: 0;
-    margin-bottom: 0;
-  }
-}
-
-.footer-region-button {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  margin: 6px 0;
-  min-width: 120px;
-}
-
-.footer-region-img {
-  height: 20px;
-  width: 20px;
-  margin-right: 6px;
-}
-
-.footer-region-text::after {
-  content: ' \2228';
-}
-
-.footer-region-button[aria-expanded=true] .footer-region-text::after {
-  content: ' \2227';
-}
-
-.footer-region-options {
-  position: absolute;
-  bottom: 2.2rem;
-  min-width: 150px;
-  margin: 0;
-  padding: 0;
-  z-index: 3;
-  list-style-type: none;
-  background: var(--color-white);
-  border: 1px solid var(--color-gray-300);
-  border-radius: 4px;
-}
-
-.footer-region-button[aria-expanded=false] + .footer-region-options {
-  visibility: hidden;
-}
-
-.footer-region-button[aria-expanded=true] + .footer-region-options  {
-  visibility: visible;
-}
-
-.footer-region-option {
-  margin: 1rem;
-  font-size: var(--body-font-size-s);
-  font-weight: 100;
-}
-
-.footer-region-option:not(.footer-region-selected) a {
-  display: block;
-  width: 100%;
-}
-
-.footer-region-selected a {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.footer-region-selected a::after {
-  content: ' ';
-  display: block;
-  margin: 0 2px;
-  width: 6px;
-  height: 16px;
-  border: solid var(--color-info-accent);
-  border-width: 0 1px 1px 0;
-  transform: rotate(45deg);
-}
-
 /* SOCIAL ICONS */
 .footer-social {
   position: relative;
@@ -258,10 +179,12 @@ footer a:focus {
 }
 
 .footer-social-icon:not(:last-of-type) {
-  margin-right: 18px;
+  margin-right: 20px;
 }
 
 .footer-social-img {
+  /* https://stackoverflow.com/questions/22252472/how-to-change-the-color-of-an-svg-element */
+  filter: invert(26%) sepia(27%) saturate(7118%) hue-rotate(188deg) brightness(97%) contrast(103%);
   width: 18px;
 }
 
@@ -279,7 +202,7 @@ footer a:focus {
 
 /* COPYRIGHT */
 .footer-privacy-copyright {
-  font-weight: var(--body-font-weight);
+  font-weight: 300;
   margin-top: 0;
   margin-bottom: 9px;
   line-height: 1;
@@ -305,6 +228,14 @@ footer a:focus {
   display: inline-block;
   margin-right: 6px;
   margin-bottom: 6px;
+}
+
+.footer-privacy-link a {
+  text-decoration: none;
+  color: var(--color-heading);
+  text-transform: uppercase;
+  letter-spacing: .15em;
+  font-size: 12px;
 }
 
 .footer-privacy-link img {
