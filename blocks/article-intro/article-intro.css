@@ -1,7 +1,7 @@
 .article-intro .intro {
+  max-width: 1000px;
   display: flex;
   flex-direction: column;
-  margin-bottom: 55px;
 }
 
 .article-intro .intro picture:before {
@@ -83,12 +83,12 @@
     height: 60%;
     background: linear-gradient(0deg,rgba(0, 0, 0, 0.8),transparent);
   }
-  
+
 }
 @media screen and (min-width: 700px) {
   .article-intro .intro {
     position: relative;
-    margin: 0 20px 10px 20px;
+    margin: 0 auto;
     flex-flow: row;
     justify-content: space-between;
     align-items: flex-start;
