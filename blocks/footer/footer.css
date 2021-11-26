@@ -69,7 +69,6 @@ footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  cursor: pointer;
 }
 
 .footer-nav-item-title[aria-expanded=false]::after {
@@ -170,7 +169,7 @@ footer {
 }
 
 .footer-social-icon:not(:last-of-type) {
-  margin-right: 18px;
+  margin-right: 20px;
 }
 
 .footer-social-img {

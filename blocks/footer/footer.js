@@ -1,7 +1,5 @@
 import createTag from '../../scripts/utils.js';
 
-const ADCHOICE_IMG = '<img class="footer-link-img" loading="lazy" alt="AdChoices icon" src="/blocks/footer/adchoices-small.svg">';
-
 class Footer {
   constructor(body, el) {
     this.el = el;
@@ -141,14 +139,15 @@ class Footer {
   decoratePrivacy = () => {
     const copyrightEl = this.body.querySelector('div em');
     const links = copyrightEl.parentElement.querySelectorAll('a');
-    if (!copyrightEl || !links) return null;
+
+    if (!copyrightEl || !links) {
+      return null;
+    }
+
     const infoLinks = createTag('ul', { class: 'footer-info' });
     // populate privacy links
     links.forEach((link) => {
       const li = createTag('li', { class: 'footer-privacy-link' });
-      if (link.hash === '#interest-based-ads') {
-        link.insertAdjacentHTML('afterbegin', ADCHOICE_IMG);
-      }
       li.append(link);
       infoLinks.append(li);
     });
