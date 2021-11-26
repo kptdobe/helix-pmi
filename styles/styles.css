@@ -1,6 +1,6 @@
 /* above the fold CSS goes here */
 :root {
-    --color-primary: rgb(0, 116, 192);
+    --color-primary: #0074c6;
     --color-primary-hover: #0062a3;
     --gradient-color: rgba(0, 0, 0, 0.8);
     --color-heading: #393939;
