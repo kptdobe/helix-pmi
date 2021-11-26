@@ -137,6 +137,57 @@ export function getPlaceholder(key) {
 }
 
 /**
+ * Build figcaption element
+ * @param {Element} pEl The original element to be placed in figcaption.
+ * @returns figCaptionEl Generated figcaption
+ */
+export function buildCaption(pEl) {
+  const figCaptionEl = document.createElement('figcaption');
+  pEl.classList.add('caption');
+  figCaptionEl.append(pEl);
+  return figCaptionEl;
+}
+
+/**
+ * Build figure element
+ * @param {Element} blockEl The original element to be placed in figure.
+ * @returns figEl Generated figure
+ */
+export function buildFigure(blockEl) {
+  const figEl = document.createElement('figure');
+  figEl.classList.add('figure');
+  // content is picture only, no caption or link
+  if (blockEl.firstChild) {
+    if (blockEl.firstChild.nodeName === 'PICTURE' || blockEl.firstChild.nodeName === 'VIDEO') {
+      figEl.append(blockEl.firstChild);
+    } else if (blockEl.firstChild.nodeName === 'P') {
+      const pEls = Array.from(blockEl.children);
+      pEls.forEach((pEl) => {
+        if (pEl.firstChild) {
+          if (pEl.firstChild.nodeName === 'PICTURE' || pEl.firstChild.nodeName === 'VIDEO') {
+            figEl.append(pEl.firstChild);
+          } else if (pEl.firstChild.nodeName === 'EM') {
+            const figCapEl = buildCaption(pEl);
+            figEl.append(figCapEl);
+          } else if (pEl.firstChild.nodeName === 'A') {
+            const picEl = figEl.querySelector('picture');
+            if (picEl) {
+              pEl.firstChild.textContent = '';
+              pEl.firstChild.append(picEl);
+            }
+            figEl.prepend(pEl.firstChild);
+          }
+        }
+      });
+    // catch link-only figures (like embed blocks);
+    } else if (blockEl.firstChild.nodeName === 'A') {
+      figEl.append(blockEl.firstChild);
+    }
+  }
+  return figEl;
+}
+
+/**
  * Decorates a block.
  * @param {Element} block The block element
  */
