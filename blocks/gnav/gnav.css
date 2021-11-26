@@ -9,6 +9,7 @@ header .gnav {
   height: 64px;
   border-bottom: 1px solid #EAEAEA;
   display: flex;
+  z-index: 10;
 }
 
 .gnav {
@@ -460,9 +461,16 @@ button.gnav-toggle:after {
 }
 
 .language-toggle {
+  text-transform: uppercase;
   cursor: pointer;
   -webkit-user-select: none; /* Safari */
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE10+/Edge */
   user-select: none; /* Standard */
+}
+
+@media screen and (max-width: 1199px) {
+  .language-toggle {
+    display: none;
+  }
 }

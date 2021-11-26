@@ -90,7 +90,7 @@ export default function onSearchInput(value, resultsContainer, advancedLink) {
   populateSearchResults(value, resultsContainer);
   if (advancedLink) {
     const href = new URL(advancedLink.href);
-    href.searchParams.set('q', value);
+    href.searchParams.set('searchQuery', value);
     advancedLink.href = href.toString();
   }
 }

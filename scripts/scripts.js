@@ -111,10 +111,80 @@ function wrapSections($sections) {
 }
 
 export function makeLinkRelative(href) {
-  const url = new URL(href);
-  const host = url.hostname;
-  if (host.endsWith('.page') || host.endsWith('.live')) return (`${url.pathname}${url.search}${url.hash}`);
-  return (href);
+  if (!href.startsWith('/')) {
+    const url = new URL(href);
+    const host = url.hostname;
+    if (host.endsWith('.page') || host.endsWith('.live')) return (`${url.pathname}${url.search}${url.hash}`);
+  }
+  return href;
+}
+
+export function getLocale() {
+  return window.location.href.includes('/en/') ? 'en' : 'it';
+}
+
+export function getPlaceholder(key) {
+  const PLACEHOLDERS = {
+    en: {
+      more: 'Lear more',
+    },
+    it: {
+      more: 'Scopri di più',
+    },
+  };
+
+  return PLACEHOLDERS[getLocale()][key];
+}
+
+/**
+ * Build figcaption element
+ * @param {Element} pEl The original element to be placed in figcaption.
+ * @returns figCaptionEl Generated figcaption
+ */
+export function buildCaption(pEl) {
+  const figCaptionEl = document.createElement('figcaption');
+  pEl.classList.add('caption');
+  figCaptionEl.append(pEl);
+  return figCaptionEl;
+}
+
+/**
+ * Build figure element
+ * @param {Element} blockEl The original element to be placed in figure.
+ * @returns figEl Generated figure
+ */
+export function buildFigure(blockEl) {
+  const figEl = document.createElement('figure');
+  figEl.classList.add('figure');
+  // content is picture only, no caption or link
+  if (blockEl.firstChild) {
+    if (blockEl.firstChild.nodeName === 'PICTURE' || blockEl.firstChild.nodeName === 'VIDEO') {
+      figEl.append(blockEl.firstChild);
+    } else if (blockEl.firstChild.nodeName === 'P') {
+      const pEls = Array.from(blockEl.children);
+      pEls.forEach((pEl) => {
+        if (pEl.firstChild) {
+          if (pEl.firstChild.nodeName === 'PICTURE' || pEl.firstChild.nodeName === 'VIDEO') {
+            figEl.append(pEl.firstChild);
+          } else if (pEl.firstChild.nodeName === 'EM') {
+            const figCapEl = buildCaption(pEl);
+            figEl.append(figCapEl);
+          } else if (pEl.firstChild.nodeName === 'A') {
+            const picEl = figEl.querySelector('picture');
+            if (picEl) {
+              pEl.firstChild.textContent = '';
+              pEl.firstChild.append(picEl);
+            }
+            figEl.prepend(pEl.firstChild);
+          }
+        }
+      });
+    // catch link-only figures (like embed blocks);
+    } else if (blockEl.firstChild.nodeName === 'A') {
+      figEl.append(blockEl.firstChild);
+    }
+  }
+  return figEl;
 }
 
 /**
@@ -380,62 +450,89 @@ function buildImageBlocks(main) {
   });
 }
 
+export function isArticlePage() {
+  return !!document.querySelector('[name="category"]');
+}
+
+export function isBlogEntryPage() {
+  return !!document.querySelector('[name="publication-date"]');
+}
+
+export function isCategoryPage() {
+  return !!document.querySelector('.article-intro');
+}
+
+function buildHeroTeaserElement(title, subTitle, image) {
+  const hero = document.createElement('div');
+  hero.classList.add('hero');
+
+  const heroText = document.createElement('div');
+  heroText.classList.add('hero-text');
+
+  // hero -> 2 columns (title, subline | image)
+  hero.appendChild(heroText);
+  heroText.appendChild(title);
+  heroText.appendChild(subTitle);
+
+  const heroImgWrapper = document.createElement('div');
+  heroImgWrapper.classList.add('hero-image');
+  const parent = image.parentNode;
+  heroImgWrapper.append(image);
+  hero.append(heroImgWrapper);
+  parent.remove();
+
+  const contentWrapper = document.querySelector('main div:first-of-type');
+  // insert new hero block as first element in '<main><section-wrapper><div>'
+  contentWrapper.insertBefore(hero, contentWrapper.firstChild);
+}
+
 /**
  * builds hero blocks from default content on article pages.
- * @param {Element} main The container element
  */
-function buildHeroBlock(main) {
-  const title = document.querySelector('main div:first-of-type h1:first-of-type');
-  const picture = document.querySelector('main div:first-of-type p picture');
+function buildHeroBlock() {
   // first element must be a h1 and there should be a picture
-  if (title && picture) {
-    // grab h1, p and first img
-    const contentWrapper = main.querySelector('div');
-    const subTitle = title.nextElementSibling;
+  if (isArticlePage() || isCategoryPage()) {
+    const title = document.querySelector('main div:first-of-type h1:first-of-type');
+    const picture = document.querySelector('main div:first-of-type p picture');
 
-    const hero = document.createElement('div');
-    hero.classList.add('hero');
-
-    const heroText = document.createElement('div');
-    heroText.classList.add('hero-text');
-
-    // hero -> 2 columns (title, subline | image)
-    hero.appendChild(heroText);
-    heroText.appendChild(title);
-    heroText.appendChild(subTitle);
-
-    const heroImgWrapper = document.createElement('div');
-    heroImgWrapper.classList.add('hero-image');
-    const parent = picture.parentNode;
-    heroImgWrapper.append(picture);
-    hero.append(heroImgWrapper);
-    parent.remove();
-
-    // insert new hero block as first element in '<main><section-wrapper><div>'
-    contentWrapper.insertBefore(hero, contentWrapper.firstChild);
+    if (title && picture) {
+      // grab h1, p and first img
+      const subTitle = title.nextElementSibling;
+      buildHeroTeaserElement(title, subTitle, picture);
+    }
   }
 }
 
 function buildBlogBlock() {
-  const blog = document.getElementById('blog');
-  const contentWrapper = document.querySelector('main div:first-of-type');
-  const pTags = contentWrapper.querySelectorAll('p');
-  const blogText = pTags[pTags.length - 1];
+  if (isBlogEntryPage()) {
+    // Hero
+    const title = document.querySelector('main div:first-of-type h1:first-of-type');
+    const date = document.querySelector('main div:first-of-type p');
+    const heroImage = document.querySelector('main div:first-of-type p picture');
+    const contentWrapper = document.querySelector('main div:first-of-type');
 
-  if (blog && blogText) {
-    const blogATag = blog.querySelector('a');
-    const blogTextATag = blogText.querySelector('a');
-    blogATag.setAttribute('href', makeLinkRelative(blogATag.getAttribute('href')));
-    blogTextATag.setAttribute('href', makeLinkRelative(blogATag.getAttribute('href')));
+    buildHeroTeaserElement(title, date, heroImage);
 
-    const tag = document.createElement('div');
-    tag.classList.add('blog-link');
-    tag.classList.add('block');
-    tag.setAttribute('data-block-name', 'blog-link');
+    // Blog Link
+    const blog = document.getElementById('blog');
+    const pTags = contentWrapper.querySelectorAll('p');
+    const blogText = pTags[pTags.length - 1];
 
-    contentWrapper.appendChild(tag);
-    tag.appendChild(blog);
-    tag.appendChild(blogText);
+    if (blog && blogText) {
+      const blogATag = blog.querySelector('a');
+      const blogTextATag = blogText.querySelector('a');
+      blogATag.setAttribute('href', makeLinkRelative(blogATag.getAttribute('href')));
+      blogTextATag.setAttribute('href', makeLinkRelative(blogATag.getAttribute('href')));
+
+      const tag = document.createElement('div');
+      tag.classList.add('blog-link');
+      tag.classList.add('block');
+      tag.setAttribute('data-block-name', 'blog-link');
+
+      contentWrapper.appendChild(tag);
+      tag.appendChild(blog);
+      tag.appendChild(blogText);
+    }
   }
 }
 
@@ -446,7 +543,7 @@ function buildBlogBlock() {
 function buildAutoBlocks(main) {
   removeStylingFromImages(main);
   try {
-    buildHeroBlock(main);
+    buildHeroBlock();
     buildImageBlocks(main);
     buildBlogBlock();
   } catch (error) {
@@ -532,12 +629,8 @@ async function loadEager(doc) {
  * @param main
  */
 function createSocialBlock(main) {
-  const title = document.querySelector('main div:first-of-type h1:first-of-type');
-  const picture = document.querySelector('main div:first-of-type p picture');
-  // first element must be a h1 and there should be a picture - only run on articlepages
-  if (title && picture) {
+  if (isArticlePage() || isBlogEntryPage()) {
     const contentWrapper = main.querySelector('div div');
-
     const tag = document.createElement('div');
     tag.classList.add('social-wrapper');
     tag.classList.add('block');
