@@ -584,6 +584,10 @@ export function addFavIcon(href) {
   }
 }
 
+export function addLang() {
+  document.documentElement.setAttribute('lang', getLocale());
+}
+
 /**
  * Decorates the main element.
  * @param {Element} main The main element
@@ -667,6 +671,7 @@ async function loadLazy(doc) {
 
   loadBlocks(main);
   loadCSS('/styles/lazy-styles.css');
+  addLang();
   addFavIcon('/favicon.ico');
 }
 
