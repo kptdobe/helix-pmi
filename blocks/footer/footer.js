@@ -138,20 +138,27 @@ class Footer {
 
   decoratePrivacy = () => {
     const copyrightEl = this.body.querySelector('div em');
-    const links = copyrightEl.parentElement.querySelectorAll('a');
+    if (copyrightEl) {
+      const links = copyrightEl.parentElement.querySelectorAll('a');
 
-    if (!copyrightEl || !links) {
-      return null;
+      if (links) {
+        const infoLinks = createTag('ul', {});
+        // populate privacy links
+        links.forEach((link) => {
+          const li = createTag('li', { class: 'footer-privacy-link' });
+          li.append(link);
+          infoLinks.append(li);
+        });
+
+        const copyrightText = copyrightEl.innerHTML;
+        const copyrightTextElement = createTag('em', { class: 'footer-privacy-copyright' });
+        copyrightTextElement.innerHTML = copyrightText;
+
+        infoLinks.appendChild(copyrightTextElement);
+        return infoLinks;
+      }
     }
-
-    const infoLinks = createTag('ul', {});
-    // populate privacy links
-    links.forEach((link) => {
-      const li = createTag('li', { class: 'footer-privacy-link' });
-      li.append(link);
-      infoLinks.append(li);
-    });
-    return infoLinks;
+    return undefined;
   };
 
   toggleMenu = (e) => {
