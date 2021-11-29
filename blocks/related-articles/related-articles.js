@@ -29,7 +29,7 @@ class RelatedArticles {
         const titleText = parsedArticle.querySelector('html body div h1').innerHTML;
         title.innerHTML = titleText;
         // const subtitle = parsedArticle.querySelector('html body div p');
-        const imageWrapper = parsedArticle.querySelector('html body div p:nth-child(3) picture');
+        const imageWrapper = parsedArticle.querySelector('html body div p picture');
         const aTag = createTag('a', { class: 'related-articles_link' });
         aTag.href = this.articleContainers[i].url;
         aTag.title = titleText;
