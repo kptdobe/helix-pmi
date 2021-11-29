@@ -3,7 +3,7 @@
   margin: 0 auto;
 }
 
-.columns div {
+.columns > div {
   display: flex;
   gap: 20px;
 }
