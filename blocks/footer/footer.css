@@ -129,8 +129,11 @@ footer {
 }
 
 .footer-info ul {
+  width: 100%;
+  padding-left: 0;
+  max-width: 65%;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .footer-info.has-region > .footer-info-column:first-of-type,
@@ -210,7 +213,7 @@ footer {
 
 @media (min-width: 1200px) {
   .footer-privacy-copyright::after {
-    content: '/';
+    /*content: '/';*/
     margin-left: 6px;
     margin-right: 6px;
   }
@@ -225,9 +228,7 @@ footer {
 }
 
 .footer-privacy-link {
-  display: inline-block;
-  margin-right: 6px;
-  margin-bottom: 6px;
+  list-style-type: none;
 }
 
 .footer-privacy-link a {
@@ -245,6 +246,6 @@ footer {
 }
 
 .footer-privacy-link:not(:last-child)::after {
-  content: '/';
+  /*content: '/';*/
   margin-left: 6px;
 }
