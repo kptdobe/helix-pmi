@@ -1,0 +1,9 @@
+.columns {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.columns div {
+  display: flex;
+  gap: 20px;
+}
