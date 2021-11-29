@@ -8,7 +8,7 @@
     margin: 0px 10px;
     width: 55px;
     height: 55px;
-    background-color: var(--color-primary);
+    background-color: rgb(239, 239, 239);
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -17,4 +17,13 @@
     transition: background .4s ease-in-out;
     text-decoration: none;
     color: var(--color-heading);
+}
+
+.social-wrapper_button a {
+    text-decoration: none;
+    font-size: 40px;
+    color: #575757;
+    margin-bottom: 8px;
+    filter: invert(26%) sepia(27%) saturate(7118%) hue-rotate(
+        188deg) brightness(97%) contrast(103%);
 }
