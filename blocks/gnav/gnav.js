@@ -1,8 +1,7 @@
 import { makeLinkRelative } from '../../scripts/scripts.js';
 import createTag, { getLocaleFromUrl } from '../../scripts/utils.js';
 
-const ADOBE_IMG = '<img alt="Adobe" src="/blocks/gnav/adobe-logo.svg">';
-const BRAND_IMG = '<img src="/blocks/gnav/logo.webp">';
+const BRAND_IMG = '<img src="/blocks/gnav/logo.webp" alt="PMI Logo">';
 const SEARCH_ICON = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" focusable="false">
 <path d="M14 2A8 8 0 0 0 7.4 14.5L2.4 19.4a1.5 1.5 0 0 0 2.1 2.1L9.5 16.6A8 8 0 1 0 14 2Zm0 14.1A6.1 6.1 0 1 1 20.1 10 6.1 6.1 0 0 1 14 16.1Z"></path>
 </svg>`;
@@ -41,11 +40,6 @@ class Gnav {
     const search = this.decorateSearch();
     if (search) {
       nav.append(search);
-    }
-
-    const logo = this.decorateLogo();
-    if (logo) {
-      nav.append(logo);
     }
 
     const wrapper = createTag('div', { class: 'gnav-wrapper' }, nav);
@@ -92,23 +86,12 @@ class Gnav {
     const classNameClipped = className.slice(0, -1);
     const classNames = classNameClipped.split('--');
     brand.className = classNames.join(' ');
-    if (brand.classList.contains('logo')) {
-      brand.insertAdjacentHTML('afterbegin', BRAND_IMG);
-    }
     brand.append(title);
-    return brand;
-  };
 
-  decorateLogo = () => {
-    const logo = this.body.querySelector('.adobe-logo a');
-    if (logo) {
-      logo.href = makeLinkRelative(logo.href);
-      logo.classList.add('gnav-logo');
-      logo.setAttribute('aria-label', logo.textContent);
-      logo.textContent = '';
-      logo.insertAdjacentHTML('afterbegin', ADOBE_IMG);
+    if (brand.classList.contains('logo')) {
+      brand.insertAdjacentHTML('beforeend', BRAND_IMG);
     }
-    return logo;
+    return brand;
   };
 
   decorateMainNav = () => {
