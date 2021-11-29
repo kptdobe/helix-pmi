@@ -10,6 +10,10 @@
  * governing permissions and limitations under the License.
  */
 
+if (window.location.pathname === '/') {
+  window.location.pathname = '/it/';
+}
+
 /**
  * Loads a CSS file.
  * @param {string} href The path to the CSS file
@@ -649,13 +653,13 @@ async function loadLazy(doc) {
   /* load gnav */
   const header = document.querySelector('header');
   header.setAttribute('data-block-name', 'gnav');
-  header.setAttribute('data-gnav-source', '/gnav');
+  header.setAttribute('data-gnav-source', `/${getLocale()}/gnav`);
   loadBlock(header);
 
   /* load footer */
   const footer = document.querySelector('footer');
   footer.setAttribute('data-block-name', 'footer');
-  footer.setAttribute('data-footer-source', '/footer');
+  footer.setAttribute('data-footer-source', `/${getLocale()}/footer`);
   loadBlock(footer);
 
   /* add custom blocks to dom */
